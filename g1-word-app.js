@@ -15,27 +15,37 @@
     view: "spelling",
     filter: "today",
     index: 0,
-    progress: loadProgress(),
+    progress: null,
     pendingWord: null,
     peeked: false,
     lastSpokenKey: null,
-    judgeMode: "self", // "self" 或 "parent"
+    judgeMode: "self",
     tileAttempts: 0,
     speechUnlocked: false
   };
 
+  // 先加载进度，再初始化 state.progress
+  state.progress = loadProgress();
+  state.judgeMode = state.progress.judgeMode; // 从持久化里恢复判定模式
+
   const words = buildWords(groups);
-  let todayWords = makeTodayWords(words, 10);
+  let todayWords = null; // 延迟初始化，等 state.progress 就绪
 
   function getTodayDate() { return new Date().toISOString().split("T")[0]; }
 
   function makeTodayWords(allWords, count) {
     const today = getTodayDate();
     const cached = state.progress.today;
-    if (cached && cached.date === today && cached.keys && cached.keys.length) {
-      // 同一天，还原这批词
+    // 强制重算：如果缓存的数量和当前要求不一致，清掉重来
+    if (cached && cached.count !== count) {
+      delete state.progress.today;
+      saveProgress();
+    }
+    const cachedAfter = state.progress.today;
+    // 同一天且数量一致，还原这批词；否则重算
+    if (cachedAfter && cachedAfter.date === today && cachedAfter.count === count && cachedAfter.keys && cachedAfter.keys.length) {
       const map = new Map(allWords.map(w => [w.key, w]));
-      return cached.keys.map(k => map.get(k)).filter(Boolean);
+      return cachedAfter.keys.map(k => map.get(k)).filter(Boolean);
     }
     // 新一天或首次，重新计算
     const trouble = allWords.filter((w) => getStatus(w.key) === "trouble");
@@ -43,10 +53,13 @@
     const challengeUn = allWords.filter((w) => w.track === "challenge" && getStatus(w.key) === "unseen");
     const vocabUn = allWords.filter((w) => w.track === "vocab" && getStatus(w.key) === "unseen");
     const list = uniqueByKey([...trouble, ...coreUn, ...challengeUn, ...vocabUn]).slice(0, count);
-    state.progress.today = { date: today, keys: list.map(w => w.key) };
+    state.progress.today = { date: today, count, keys: list.map(w => w.key) }; // 存 count 便于检测变化
     saveProgress();
     return list;
   }
+
+  // 初始化今日词库
+  todayWords = makeTodayWords(words, 30);
 
   const els = {
     tabs: document.querySelectorAll(".mode-tab"),
@@ -148,7 +161,6 @@
     if (!e.progress) e.progress = {};
     if (!e.storiesDone) e.storiesDone = {};
     if (!e.judgeMode) e.judgeMode = "self";
-    state.judgeMode = e.judgeMode;
     return e;
   }
 
@@ -167,7 +179,7 @@
       // 每天重新检查是否过期
       const today = getTodayDate();
       if (!state.progress.today || state.progress.today.date !== today) {
-        todayWords = makeTodayWords(words, 10);
+        todayWords = makeTodayWords(words, 30);
       }
       return todayWords;
     }
@@ -671,6 +683,8 @@
     saveProgress();
     document.getElementById("judgeModeLabel").textContent = state.judgeMode === "self" ? "自己拼" : "家长判";
   });
+  // 初始化标签
+  document.getElementById("judgeModeLabel").textContent = state.judgeMode === "self" ? "自己拼" : "家长判";
 
   // iOS 语音解锁
   document.body.addEventListener("pointerdown", unlockSpeech, { once: true });
