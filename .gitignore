@@ -1,0 +1,7 @@
+*.pdf
+*.jpg
+*.xlsx
+*.ndjson
+_codex_build/
+_codex_preview/
+.claude/

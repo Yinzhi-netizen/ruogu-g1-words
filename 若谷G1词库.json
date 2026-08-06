@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "title": "若谷 G1 英文词库",
+    "description": "唯一数据源。xlsx 与 g1-word-data.js 均由此生成，勿直接改生成物。",
+    "updated": "2026-08-01",
+    "sourcePriority": [
+      "spelling 1.pdf / spelling 2.pdf（官方听写练习表）",
+      "周报扫描件 IMG_20260707_0001_NEW.pdf / IMG_20260709_0003_NEW.pdf / IMG_20260709_0004_NEW.pdf",
+      "周报照片 G1-words/*.jpg",
+      "Tsinglan Primary Glossary G1.pdf（仅作补充核对，不入库）"
+    ],
+    "trackRule": "weekly_spelling 与 spelling_standard → core；spelling_challenge → challenge；weekly_vocab → vocab。同词多来源时优先级 core > challenge > vocab。"
+  },
+
+  "corrections": [
+    { "original": "number patters", "corrected": "number patterns", "where": "2025-11-05 Math", "note": "原件教师笔误" },
+    { "original": "dines", "corrected": "dimes", "where": "2026-06-03 Math", "note": "原件教师笔误" },
+    { "original": "nickles", "corrected": "nickels", "where": "2026-06-03 Math", "note": "原件教师笔误" },
+    { "original": "axels", "corrected": "axles", "where": "2026-06-03 Science", "note": "原件教师笔误" },
+    { "original": "non-fiction", "corrected": "nonfiction", "where": "2025-09-02 / 2025-09-10 Wonders", "note": "与 2026-04-28 写法统一" },
+    { "original": "April 9th, 2029", "corrected": "2026-04-09", "where": "周报日期", "note": "原件印作 2029，内容与 2026 年 4 月吻合" },
+    { "original": "why", "corrected": "my", "where": "Cycle 4 第 10 词", "note": "官方听写练习表 spelling 2.pdf p8 作 my；2026-03-04 周报作 why，两词均已在库" }
+  ],
+
+  "weekly": [
+    {
+      "sourceFile": "25.9.2.jpg", "date": "2025-09-02", "label": "Grade 1 News - September 2, 2025",
+      "Wonders": ["where", "what", "does", "not", "school", "photograph", "nonfiction", "fiction"],
+      "Math": ["equation", "add", "plus", "family", "birthday", "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"],
+      "Science": ["observe", "experiment", "inference", "measure", "scientific method", "hypothesis", "analyze"]
+    },
+    {
+      "sourceFile": "25.9.10.jpg", "date": "2025-09-10", "label": "Grade 1 News - September 10, 2025",
+      "Wonders": ["where", "what", "does", "not", "school", "photograph", "nonfiction", "fiction"],
+      "Math": ["part", "whole", "number bonds", "number sentences", "equal sign", "addition sign"],
+      "Science": ["matter", "solid", "liquid", "gas", "properties", "vibrate", "volume"],
+      "Spelling": ["fit", "if", "it", "pit", "mat", "sat", "and", "the", "up", "very"]
+    },
+    {
+      "sourceFile": "25.9.18.jpg", "date": "2025-09-18", "label": "Grade 1 News - September 18, 2025",
+      "Wonders": ["out", "up", "down", "very"],
+      "Math": ["part-whole model", "fact family", "subtract", "take away", "less than", "equal to"],
+      "Science": ["source", "reflect", "transparent", "opaque", "translucent", "refract", "communicate"],
+      "Spelling": ["fin", "pin", "am", "man", "mop", "pot", "not", "on", "out", "down"]
+    },
+    {
+      "sourceFile": "25.10.9.jpg", "date": "2025-10-09", "label": "Grade 1 News - October 9, 2025",
+      "Wonders": ["out", "up", "down", "very"],
+      "Math": ["ones", "tens", "hundreds", "greater than", "less than"],
+      "Science": ["source", "reflect", "transparent", "opaque", "translucent", "refract", "communicate", "solid", "liquid", "gas"],
+      "Spelling": ["gum", "pig", "tag", "tug", "got", "us", "up", "can", "good", "come"]
+    },
+    {
+      "sourceFile": "25.10.20.jpg", "date": "2025-10-20", "label": "Grade 1 News - October 20, 2025",
+      "Wonders": ["pull", "good", "come", "be"],
+      "Math": ["addition", "counting on", "sum", "subtract", "difference", "word problems"],
+      "Science": ["tilt", "axis", "orbit", "equator", "solar system", "planet", "moon", "crater", "reflect", "tide", "atmosphere"],
+      "Spelling": ["bad", "tub", "set", "get", "cup", "pups", "cuts", "see", "be", "pull"]
+    },
+    {
+      "sourceFile": "IMG_20260707_0001_NEW.pdf p4", "date": "2025-11-05", "label": "Grade 1 News - November 05, 2025",
+      "Wonders": ["again", "help", "new", "there", "use"],
+      "Math": ["mental math", "number patterns", "hundreds", "calculate", "sum"],
+      "Science": ["constellation", "pattern", "phase", "galaxy"],
+      "Spelling": ["rust", "ran", "grab", "drip", "from", "last", "let", "look", "are", "help"],
+      "phonics": "r 与 l 的音；digraphs 编码解码"
+    },
+    {
+      "sourceFile": "25.11.13.jpg", "date": "2025-11-13", "label": "Grade 1 News - November 13-21, 2025",
+      "Wonders": ["acorn", "life cycle", "grow", "plant"],
+      "Math": ["tally", "graph", "pictograph"],
+      "Science": ["tilt", "axis", "orbit", "equator", "solar system", "planet", "moon", "crater", "reflect", "tide", "atmosphere"],
+      "Spelling": ["wag", "win", "swim", "jump", "yelp", "fox", "there", "help", "look", "are"],
+      "phonics": "字母 W, J, X"
+    },
+    {
+      "sourceFile": "25.11.24.jpg", "date": "2025-11-24", "label": "Grade 1 News - November 24, 2025",
+      "Wonders": ["there", "help", "use", "new", "again"],
+      "Math": ["graph"],
+      "Science": ["surface", "crust", "mineral", "rock", "geologist", "excavate", "igneous", "sedimentary", "metamorphic"],
+      "Spelling": ["quiz", "quit", "vet", "vast", "zap", "zest", "six", "you", "have", "next"]
+    },
+    {
+      "sourceFile": "25.12.2.jpg", "date": "2025-12-02", "label": "Grade 1 News - December 2-9, 2025",
+      "Wonders": ["then", "could", "live", "three", "one", "building"],
+      "Math": ["total", "in all", "have left", "subtract", "add", "sum", "difference"],
+      "Science": ["natural resource", "fossil fuels", "renewable"],
+      "Spelling": ["stand", "craft", "best", "list", "split", "stop", "frost", "jump", "have", "you"]
+    },
+    {
+      "sourceFile": "25.12.10.jpg", "date": "2025-12-10", "label": "Grade 1 News - December 10, 2025",
+      "Wonders": ["rustle", "steam", "pocket watch", "tiptoe", "aboard", "milk chocolate", "flickered", "mountains"],
+      "Math": ["pattern", "repeat", "predict", "pattern rule"],
+      "Science": ["soil", "nutrients", "decay", "pollution", "clean energy", "compost"],
+      "Spelling": ["well", "end", "plant", "ask", "cliff", "land", "what", "are", "from", "want"],
+      "phonics": "double-letter graphemes"
+    },
+    {
+      "sourceFile": "25.1.4.jpg", "date": "2026-01-04", "label": "Grade 1 News - January 4-7, 2026",
+      "Wonders": ["eat", "no", "of", "under", "who"],
+      "Math": ["total", "in all", "plus", "equals", "regroup", "tens", "ones", "place value"],
+      "Science": ["natural resource", "fossil fuels", "renewable"],
+      "Spelling": ["ball", "small", "roll", "full", "crack", "stick", "pick", "all", "eat", "who"],
+      "note": "文件名 25.1.4.jpg 实为 2026 年 1 月，原始文件名有误"
+    },
+    {
+      "sourceFile": "IMG_20260709_0004_NEW.pdf p2", "date": "2026-01-19", "label": "Grade 1 News - January 19, 2026",
+      "Wonders": ["away", "now", "some", "why", "today", "way"],
+      "Math": ["ruler", "measure", "centimeter", "length", "height", "compare"],
+      "Science": ["experiment", "question", "hypothesis", "data", "analysis", "conclusion"],
+      "Spelling": ["than", "that", "cloth", "moth", "check", "bench", "why", "away", "talk", "walk"],
+      "phonics": "digraphs Th- 与 Ch-"
+    },
+    {
+      "sourceFile": "26.1.27.jpg", "date": "2026-01-27", "label": "Grade 1 News - January 27, 2026",
+      "Wonders": ["trade", "celebration", "greedy", "wok", "saunter"],
+      "Math": ["ruler", "measure", "centimeter", "length", "height", "compare"],
+      "Science": ["experiment", "question", "hypothesis", "data", "analysis", "conclusion"],
+      "Spelling": ["trash", "luck", "chip", "could", "should", "when", "graph", "which", "phone", "wish"]
+    },
+    {
+      "sourceFile": "IMG_20260707_0001_NEW.pdf p2", "date": "2026-03-04", "label": "Grade 1 News - March 4, 2026",
+      "Wonders": ["rain", "grow", "together", "should", "pretty", "water"],
+      "Math": ["exhibit", "attraction", "centimeter", "meter"],
+      "Science": ["experiment", "question", "hypothesis", "data", "analysis", "conclusion"],
+      "Spelling": ["cake", "game", "late", "bike", "mile", "kite", "pretty", "together", "who", "why"],
+      "phonics": "Magic e：long a 与 long i"
+    },
+    {
+      "sourceFile": "IMG_20260709_0004_NEW.pdf p3", "date": "2026-03-12", "label": "Grade 1 News - March 12, 2026",
+      "Wonders": ["once", "happy", "any", "so", "from"],
+      "Math": ["money", "coin", "bill", "note"],
+      "Science": ["survival", "mammal", "reptile", "invertebrate", "amphibian", "biomimicry"],
+      "Spelling": ["note", "home", "phone", "these", "here", "sphere", "eight", "about", "by", "there"],
+      "phonics": "Magic e：long o 与 long e"
+    },
+    {
+      "sourceFile": "IMG_20260709_0004_NEW.pdf p1", "date": "2026-03-20", "label": "Grade 1 News - March 20-30, 2026",
+      "Wonders": ["ago", "people", "how", "boy", "girl", "transportation", "engines", "invented"],
+      "Math": ["heavy", "heavier", "heaviest", "light", "lighter", "lightest", "non-standard", "balance"],
+      "Science": ["surface", "crust", "mineral", "geologist", "excavate"],
+      "Spelling": ["grade", "theme", "drive", "stone", "cube", "flute", "girl", "people", "one", "by"]
+    },
+    {
+      "sourceFile": "IMG_20260709_0003_NEW.pdf p1", "date": "2026-03-31", "label": "Grade 1 News - March 31, 2026",
+      "Wonders": ["work", "every", "soon", "done", "after", "buy"],
+      "Math": ["digit", "place value", "skip counting", "pattern", "greater than", "less than", "sequence"],
+      "Science": ["organism", "offspring", "traits", "veining", "food chain"],
+      "Spelling": ["pace", "race", "mice", "stage", "cage", "place", "huge", "once", "buy", "done"],
+      "phonics": "词尾 -ce 与 -ge"
+    },
+    {
+      "sourceFile": "IMG_20260709_0003_NEW.pdf p6", "date": "2026-04-09", "label": "Grade 1 News - April 9, 2026",
+      "Wonders": ["splendid", "animal", "eight", "about", "special", "our", "give", "carry"],
+      "Math": ["addition", "number lines", "grouping", "bundles", "place value", "greater than", "less than"],
+      "Science": ["offspring", "reproduce", "habitat", "adaptation", "predator", "prey", "camouflage", "biomimicry", "food chain"],
+      "Spelling": ["give", "love", "some", "foxes", "lunches", "classes", "our", "animal", "two", "does"],
+      "note": "原件印作 April 9th, 2029，系笔误"
+    },
+    {
+      "sourceFile": "IMG_20260709_0003_NEW.pdf p2", "date": "2026-04-28", "label": "Grade 1 News - April 28, 2026",
+      "Wonders": ["nonfiction", "table of contents", "glossary", "author", "illustrator", "page numbers", "title", "cover"],
+      "Math": ["logic", "puzzle", "challenge"],
+      "Science": ["hypothesis", "procedure", "materials", "conclusion", "results", "data"],
+      "Spelling": ["nap", "shin", "sub", "hotdog", "backpack", "himself", "caught", "flew", "friend", "because"],
+      "phonics": "open/closed syllables；compound words"
+    },
+    {
+      "sourceFile": "IMG_20260709_0003_NEW.pdf p5", "date": "2026-05-11", "label": "Grade 1 News - May 11, 2026",
+      "Wonders": ["find", "food", "more", "search", "seek", "laugh", "listen", "know", "flew", "beautiful"],
+      "Math": ["clock", "hour", "minute"],
+      "Science": ["weather", "temperature", "wind", "humidity", "precipitation", "clouds", "rain", "snow", "hail", "fog", "sleet"],
+      "Spelling": ["open", "even", "begin", "fetch", "hitch", "switch", "were", "know", "woman", "women"],
+      "phonics": "open/closed syllables；/tch/ 音"
+    },
+    {
+      "sourceFile": "IMG_20260709_0003_NEW.pdf p4", "date": "2026-05-19", "label": "Grade 1 News - May 19, 2026",
+      "Wonders": ["look for", "catch", "pet", "mad", "stomp", "know"],
+      "Math": ["subtract", "regroup", "minus", "have left"],
+      "Science": ["weather", "temperature", "wind", "humidity", "precipitation", "clouds", "rain", "snow", "hail", "fog", "sleet"],
+      "Spelling": ["badge", "bridge", "judge", "child", "kind", "most", "busy", "brought", "move", "both"],
+      "phonics": "_dge 与 Long Vowel VCC"
+    },
+    {
+      "sourceFile": "IMG_20260709_0003_NEW.pdf p3", "date": "2026-06-03", "label": "Grade 1 News - June 3-11, 2026",
+      "Wonders": ["full", "stretched", "poor", "through", "climbed", "another", "leaped", "accepted"],
+      "Math": ["money", "pennies", "dimes", "nickels", "Yuan"],
+      "Science": ["pull", "push", "pulleys", "levers", "forces", "friction", "momentum", "axles", "wheels"],
+      "Spelling": ["after", "letter", "number", "girl", "bird", "nurse", "often", "picture", "brother", "another"],
+      "phonics": "R-Controlled vowels：-er, -ir, -ur"
+    }
+  ],
+
+  "spelling": [
+    { "sourceFile": "spelling 2.pdf", "page": 7, "cycle": "Cycle 1", "type": "standard",
+      "words": ["than", "that", "cloth", "moth", "check", "bench", "why", "away", "talk", "walk"] },
+    { "sourceFile": "spelling 2.pdf", "page": 8, "cycle": "Cycle 4", "type": "standard",
+      "words": ["cake", "game", "late", "bike", "mile", "kite", "pretty", "together", "who", "my"] },
+    { "sourceFile": "spelling 2.pdf", "page": 9, "cycle": "Cycle 5", "type": "challenge",
+      "words": ["chance", "since", "hence", "grime", "glance", "June", "strive", "place", "important", "mountains"] },
+    { "sourceFile": "spelling 2.pdf", "page": 6, "cycle": "Cycle 6", "type": "standard",
+      "words": ["grade", "theme", "drive", "stone", "cube", "flute", "one", "by", "girl", "people"] },
+    { "sourceFile": "spelling 2.pdf", "page": 3, "cycle": "Cycle 8", "type": "standard",
+      "words": ["give", "love", "some", "foxes", "lunches", "classes", "our", "animal", "two", "does"] },
+    { "sourceFile": "spelling 2.pdf", "page": 2, "cycle": "Cycle 8", "type": "challenge",
+      "words": ["squeeze", "slashes", "shrine", "thrive", "compete", "losses", "change", "splendid", "animal", "benches"] },
+    { "sourceFile": "spelling 2.pdf", "page": 1, "cycle": "Cycle 9", "type": "standard",
+      "words": ["yelled", "called", "asked", "being", "thinking", "doing", "any", "been", "because", "other"] },
+    { "sourceFile": "spelling 1.pdf", "page": 8, "cycle": "Cycle 9", "type": "challenge",
+      "words": ["stranded", "squinted", "tempted", "flashing", "spending", "planting", "brushing", "partner", "danger", "because"] },
+    { "sourceFile": "spelling 2.pdf", "page": 4, "cycle": "Cycle 10", "type": "standard",
+      "words": ["nap", "shin", "sub", "hotdog", "backpack", "himself", "caught", "flew", "friend", "because"] },
+    { "sourceFile": "spelling 2.pdf", "page": 5, "cycle": "Cycle 10", "type": "challenge",
+      "phonics": "closed/open syllables；compound words",
+      "words": ["handstand", "upset", "snapshot", "cannot", "something", "clump", "uplift", "strand", "friend", "because"] },
+    { "sourceFile": "spelling 1.pdf", "page": 1, "cycle": "Cycle 11", "type": "standard",
+      "words": ["open", "even", "begin", "fetch", "hitch", "switch", "were", "know", "woman", "women"] },
+    { "sourceFile": "spelling 1.pdf", "page": 4, "cycle": "Cycle 11", "type": "challenge",
+      "words": ["program", "moment", "equal", "vacant", "sketch", "snatch", "spoken", "protect", "laugh", "beautiful"] },
+    { "sourceFile": "spelling 1.pdf", "page": 3, "cycle": "Cycle 12", "type": "standard",
+      "phonics": "dge /j/；long VCC",
+      "words": ["badge", "judge", "bridge", "child", "kind", "most", "busy", "brought", "move", "both"] },
+    { "sourceFile": "spelling 1.pdf", "page": 2, "cycle": "Cycle 12", "type": "challenge",
+      "words": ["trudge", "pledge", "switch", "nudge", "scold", "revolt", "through", "question", "middle", "enough"] },
+    { "sourceFile": "spelling 1.pdf", "page": 7, "cycle": "Cycle 14", "type": "standard",
+      "words": ["after", "letter", "number", "girl", "bird", "nurse", "often", "picture", "brother", "another"] },
+    { "sourceFile": "spelling 1.pdf", "page": 6, "cycle": "Cycle 14", "type": "challenge",
+      "phonics": "-ur, -er, -ir",
+      "words": ["further", "reserve", "swirling", "thirsty", "twirling", "confirm", "super", "sturdy", "different", "world"] }
+  ],
+
+  "sentences": {
+    "further": "She can throw the ball further than me.",
+    "confirm": "I need to confirm the time.",
+    "reserve": "Reserve a table at the restaurant.",
+    "super": "The superhero did a super job.",
+    "swirling": "The water is swirling around.",
+    "sturdy": "The shelf is strong and sturdy.",
+    "thirsty": "I am so thirsty and I need water.",
+    "different": "The shapes are different.",
+    "twirling": "The dancer is twirling.",
+    "world": "I want to travel the world."
+  }
+}
