@@ -676,6 +676,16 @@
   });
   els.storyDone.addEventListener("click", finishStory);
 
+  // 字母回退
+  document.getElementById("tileBackspace").addEventListener("click", () => {
+    const slots = document.querySelectorAll("#tileSlots .slot");
+    const filled = Array.from(slots).filter(s => s.textContent);
+    if (!filled.length) return;
+    const last = filled[filled.length - 1];
+    last.textContent = "";
+    last.classList.remove("filled");
+  });
+
   // 判定模式切换
   document.getElementById("judgeModeToggle").addEventListener("click", () => {
     state.judgeMode = state.judgeMode === "self" ? "parent" : "self";
