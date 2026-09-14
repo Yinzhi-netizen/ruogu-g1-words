@@ -1,182 +1,124 @@
 <!doctype html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Word Lab" />
-    <meta name="theme-color" content="#0f3d4c" />
-    <title>若谷 G1 Word Lab</title>
-    <link rel="manifest" href="./manifest.webmanifest" />
-    <link rel="apple-touch-icon" href="./icons/icon-180.png" />
-    <link rel="stylesheet" href="./g1-word-styles.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <header class="topbar">
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f7f4ec" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Word Lab" />
+  <title>Ruogu's Word Lab</title>
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="./G1-words/icons/icon-180.png" />
+  <link rel="stylesheet" href="./wordlab.css?v=4" />
+</head>
+<body class="home-page">
+  <div class="site-shell">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">W</span>
+        <span class="brand-copy"><small>Ruogu's Word Lab</small><strong>Word Explorer</strong></span>
+      </div>
+      <div class="star-pill" aria-label="Ruogu's current star total">
+        <span class="star">★</span><strong id="totalStars">0</strong><span>stars</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="home-hero">
         <div>
-          <p class="eyebrow">Ruogu G1 English</p>
-          <h1>Word Lab</h1>
+          <p class="eyebrow" id="greeting">Start with one little mission</p>
+          <h1 class="display-title">Learn new words.<br><em>Meet old friends again.</em></h1>
+          <p class="lede">G2 gets you ready for your next spelling quiz. G1 brings familiar words back through short, playful adventures.</p>
         </div>
-        <div class="topbar-right">
-          <div class="star-meter" aria-label="总星">
-            <span class="star-icon">★</span>
-            <strong id="totalStars">0</strong>
-            <small>总星</small>
-          </div>
-          <nav class="mode-tabs" aria-label="学习模块">
-            <button class="mode-tab is-active" data-view="spelling" type="button">听写</button>
-            <button class="mode-tab" data-view="reading" type="button">阅读</button>
-            <button class="mode-tab" data-view="progress" type="button">掌握</button>
-          </nav>
-        </div>
-      </header>
-
-      <section class="dashboard" aria-label="今日概览">
-        <div class="metric">
-          <span class="metric-label">今日任务</span>
-          <strong id="todayCount">30</strong>
-        </div>
-        <div class="metric">
-          <span class="metric-label">核心听写</span>
-          <strong id="coreMastered">0/0</strong>
-        </div>
-        <div class="metric">
-          <span class="metric-label">拓展听写</span>
-          <strong id="challengeSeen">0/0</strong>
-        </div>
-        <div class="metric">
-          <span class="metric-label">重点识读</span>
-          <strong id="vocabRead">0/0</strong>
-        </div>
-        <div class="metric">
-          <span class="metric-label">易错词</span>
-          <strong id="troubleCount">0</strong>
-        </div>
-        <a class="game-link" href="https://yinzhi-netizen.github.io/ruogu-literacy/game.html" title="去小人战场用星换武器">小人战场 →</a>
-      </section>
-
-      <section class="view is-active" id="spellingView">
-        <aside class="study-rail">
-          <div class="rail-block">
-            <h2>词库</h2>
-            <div class="segmented" role="group" aria-label="词库筛选">
-              <button class="segment is-active" data-filter="today" type="button">今日</button>
-              <button class="segment" data-filter="core" type="button">核心</button>
-              <button class="segment" data-filter="challenge" type="button">拓展</button>
-              <button class="segment" data-filter="vocab" type="button">识读</button>
-              <button class="segment" data-filter="trouble" type="button">易错</button>
-              <button class="segment" data-filter="all" type="button">全部</button>
-            </div>
-          </div>
-
-          <div class="queue-panel">
-            <h2>当前队列 <span id="queueCount" class="queue-count"></span></h2>
-            <ol id="wordQueue" class="word-queue"></ol>
-          </div>
-        </aside>
-
-        <section class="word-stage" aria-label="听写练习">
-          <div class="source-line" id="sourceLine">核心听写</div>
-          <article class="word-card">
-            <div class="status-pill" id="statusPill">未复习</div>
-            <button class="speak-button" id="speakButton" type="button" aria-label="播放英文读音">音</button>
-            <p class="word-hint" id="wordHint">听音写词</p>
-            <p class="word-meta" id="wordMeta">Cycle / source</p>
-            <p class="word-sentence" id="wordSentence"></p>
-            <div class="spell-actions">
-              <button class="ghost-button" id="prevButton" type="button">上一个</button>
-              <button class="ghost-button" id="speakAgain" type="button">再听一遍</button>
-              <button class="ghost-button" id="peekButton" type="button">看一眼答案</button>
-              <button class="ghost-button" id="nextButton" type="button">下一个</button>
-            </div>
-          </article>
-
-          <div class="handwriting-panel">
-            <div class="panel-head">
-              <h3>手写板</h3>
-              <button class="mode-switch" id="judgeModeToggle" type="button">
-                <span id="judgeModeLabel">自己拼</span>
-              </button>
-            </div>
-            <canvas id="padCanvas" class="pad-canvas" aria-label="手写输入板"></canvas>
-            <div class="pad-toolbar">
-              <button class="ghost-button" id="padUndo" type="button">撤销</button>
-              <button class="ghost-button" id="padClear" type="button">清空</button>
-              <button class="primary-button is-visible" id="padSubmit" type="button">写好了</button>
-            </div>
-          </div>
-
-          <div class="tile-tray" id="tileTray" hidden>
-            <p class="tile-hint">点字母拼出这个词</p>
-            <div class="tile-buttons" id="tileButtons"></div>
-            <div class="tile-slots-row">
-              <div class="tile-slots" id="tileSlots"></div>
-              <button class="tile-backspace" id="tileBackspace" type="button" title="删掉最后一个字母">⌫</button>
-            </div>
-          </div>
-
-          <div class="verdict-row" id="verdictRow" hidden>
-            <p class="verdict-word">若谷写的是：<strong id="verdictAnswer">—</strong></p>
-            <p class="verdict-correct" id="verdictCorrect">正确：<strong id="verdictExpected">—</strong></p>
-            <div class="verdict-buttons">
-              <button class="mastery mastery-spell" id="verdictRight" type="button">写对了 +5★</button>
-              <button class="mastery mastery-trouble" id="verdictWrong" type="button">写错了</button>
-            </div>
-          </div>
-
-          <p class="check-result" id="checkResult" aria-live="polite"></p>
-        </section>
-      </section>
-
-      <section class="view reading-view" id="readingView">
-        <div class="reading-shelf">
-          <div class="shelf-head">
-            <p class="eyebrow">Reading Shelf</p>
-            <h2>小故事</h2>
-            <p>用词全来自词库。点故事里的英文词可以听发音，读完点「我读完了」。</p>
-          </div>
-          <div class="story-list" id="storyList"></div>
-          <article class="story-reader" id="storyReader" hidden>
-            <div class="story-reader-head">
-              <div>
-                <h3 id="storyTitle"></h3>
-                <p class="story-sub" id="storySub"></p>
-              </div>
-              <button class="ghost-button" id="storyClose" type="button">收起</button>
-            </div>
-            <div class="story-body" id="storyBody"></div>
-            <div class="story-foot">
-              <button class="ghost-button" id="storyListen" type="button">整篇朗读</button>
-              <button class="primary-button is-visible" id="storyDone" type="button">我读完了 +10★</button>
-            </div>
-          </article>
+        <div class="map-illustration" aria-label="Word exploration map">
+          <div class="map-island one">Review Island</div>
+          <div class="map-island two">Cycle 3</div>
+          <div class="map-island three">Star Camp</div>
+          <span class="map-boat" aria-hidden="true">⛵</span>
         </div>
       </section>
 
-      <section class="view progress-view" id="progressView">
-        <div class="progress-grid">
-          <section class="progress-panel">
-            <h2>掌握分布</h2>
-            <div class="bars" id="progressBars"></div>
-          </section>
-          <section class="progress-panel">
-            <h2>易错词</h2>
-            <div class="trouble-list" id="troubleList"></div>
-          </section>
-        </div>
+      <section class="route-grid" aria-label="Choose a learning route">
+        <article class="route-card g2" data-stamp="THIS WEEK">
+          <div class="route-icon" aria-hidden="true">✎</div>
+          <p class="eyebrow">Getting ready</p>
+          <h2 id="currentCycleTitle">Cycle 3 Spelling Quiz</h2>
+          <p>Meet the words, practise the spellings, then take an iPad handwriting dictation.</p>
+          <div class="route-meta">
+            <span class="tag" id="currentCycleCount">20 words</span>
+            <span class="tag">iPad handwriting</span>
+            <span class="tag" id="currentCycleProgress">Not started</span>
+          </div>
+          <a class="primary-button" href="./G2-words/index.html">Prepare for the quiz <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="route-card g1" data-stamp="EXPLORE">
+          <div class="route-icon" aria-hidden="true">⌁</div>
+          <p class="eyebrow">Easy review</p>
+          <h2>Explore the Word Islands</h2>
+          <p>Listen, find and spell. A few playful minutes bring your Grade 1 words back.</p>
+          <div class="route-meta">
+            <span class="tag">516 old friends</span>
+            <span class="tag">8 stops per trip</span>
+            <span class="tag" id="g1Progress">Choose any island</span>
+          </div>
+          <a class="primary-button sage" href="./G1-words/index.html">Start exploring <span aria-hidden="true">→</span></a>
+        </article>
       </section>
     </main>
 
-    <script src="./g1-word-data.js"></script>
-    <script src="./g1-stories.js"></script>
-    <script src="./g1-stars.js"></script>
-    <script src="./g1-word-app.js"></script>
-    <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("./sw.js").catch(() => {});
+    <footer class="site-footer">Wangyan Home · Every thoughtful try is worth remembering</footer>
+  </div>
+
+  <script src="./G2-words/g2-word-data.js?v=4"></script>
+  <script>
+    (function () {
+      const PROFILE_KEY = "ruogu-literacy-profiles-v1";
+      const LEGACY_STAR_KEY = "wordlab-total-stars";
+
+      function activeProfile() {
+        try {
+          const data = JSON.parse(localStorage.getItem(PROFILE_KEY) || "null");
+          if (data && data.activeId && data.profiles && data.profiles[data.activeId]) return data.profiles[data.activeId];
+        } catch (_) {}
+        return null;
       }
-    </script>
-  </body>
+
+      function updateHome() {
+        const profile = activeProfile();
+        const legacyStars = Number(localStorage.getItem(LEGACY_STAR_KEY) || 0);
+        const stars = profile ? Number(profile.totalStars || 0) : legacyStars;
+        document.getElementById("totalStars").textContent = Math.max(0, stars);
+
+        const english = profile && profile.english;
+        const g1 = english && english.g1;
+        const g2 = english && english.g2;
+        const g1Words = g1 && g1.words ? Object.values(g1.words) : [];
+        const revisited = g1Words.filter((item) => Number(item.attempts || 0) > 0).length;
+        if (revisited) document.getElementById("g1Progress").textContent = `${revisited} ${revisited === 1 ? "word" : "words"} revisited`;
+
+        const cycles = window.RUOGU_G2_CYCLES || [];
+        const cycle = cycles.find((item) => item.status === "current") || cycles[cycles.length - 1];
+        if (cycle) {
+          const groups = (window.RUOGU_G2_WORD_GROUPS || []).filter((group) => cycle.groupIds.includes(group.id));
+          const count = new Set(groups.flatMap((group) => group.words.map((word) => word.toLowerCase()))).size;
+          document.getElementById("currentCycleTitle").textContent = `${cycle.label} Spelling Quiz`;
+          document.getElementById("currentCycleCount").textContent = `${count} words`;
+          const cycleState = g2 && g2.cycles && g2.cycles[cycle.id];
+          const tested = cycleState && cycleState.words ? Object.values(cycleState.words).filter((item) => item.paperResult).length : 0;
+          if (tested) document.getElementById("currentCycleProgress").textContent = `${tested}/${count} tested`;
+        }
+      }
+
+      const hour = new Date().getHours();
+      document.getElementById("greeting").textContent = hour < 12 ? "Good morning, Ruogu" : hour < 18 ? "Good afternoon, Ruogu" : "Good evening, Ruogu";
+      updateHome();
+      window.addEventListener("storage", (event) => {
+        if (event.key === PROFILE_KEY || event.key === LEGACY_STAR_KEY) updateHome();
+      });
+      if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./sw.js").catch(() => {});
+    })();
+  </script>
+</body>
 </html>

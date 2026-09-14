@@ -1,19 +1,19 @@
 {
-  "name": "若谷 G1 Word Lab",
+  "name": "Ruogu's Word Lab",
   "short_name": "Word Lab",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#fbf7ee",
-  "theme_color": "#0f3d4c",
+  "background_color": "#f7f4ec",
+  "theme_color": "#356b86",
   "icons": [
     {
-      "src": "./icons/icon-192.png",
+      "src": "./G1-words/icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "./icons/icon-512.png",
+      "src": "./G1-words/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"

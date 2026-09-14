@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="G2 Quiz Prep" />
+  <meta name="theme-color" content="#f7f4ec" />
+  <title>G2 Quiz Prep · Ruogu's Word Lab</title>
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="./icons/icon-180.png" />
+  <link rel="stylesheet" href="../wordlab.css?v=4" />
+</head>
+<body class="g2-page">
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="home-link" href="../index.html">
+        <span class="brand-mark">←</span>
+        <span class="brand-copy"><small>Ruogu's Word Lab</small><strong>Back to Word Explorer</strong></span>
+      </a>
+      <div class="star-pill"><span class="star">★</span><strong id="totalStars">0</strong><span>stars</span></div>
+    </header>
+
+    <section class="page-head">
+      <div>
+        <p class="eyebrow">G2 · Quiz Preparation</p>
+        <h1>Quiz Prep</h1>
+        <p>Work through this Cycle until you can hear and spell every word on your own.</p>
+      </div>
+      <div class="summary-strip">
+        <div class="summary-item"><small>Met</small><strong id="metCount">0</strong></div>
+        <div class="summary-item"><small>Practised</small><strong id="practiceCount">0</strong></div>
+        <div class="summary-item"><small>Dictation ready</small><strong id="paperCount">0</strong></div>
+      </div>
+    </section>
+
+    <section class="cycle-banner">
+      <div>
+        <p class="eyebrow" style="color:rgba(255,255,255,.7)">Current mission</p>
+        <h2 id="cycleTitle">Cycle 3 · Spelling + Heart Words</h2>
+        <p id="cycleSub">Meet the words, practise them, then take an iPad handwriting dictation.</p>
+      </div>
+      <div class="cycle-count"><strong id="cycleWordCount">20</strong><small>quiz words</small></div>
+    </section>
+
+    <main class="prep-layout">
+      <aside class="side-panel">
+        <p class="eyebrow">Preparation path</p>
+        <h2>Your prep path</h2>
+        <div class="path-list" id="pathList">
+          <button class="path-step is-active" data-step="meet" type="button"><span class="step-num">1</span><strong>Meet the words</strong><small>Listen and notice groups</small></button>
+          <button class="path-step" data-step="practice" type="button"><span class="step-num">2</span><strong>Group practice</strong><small>Build each full word</small></button>
+          <button class="path-step" data-step="paper" type="button"><span class="step-num">3</span><strong>Mock dictation</strong><small>iPad handwriting first</small></button>
+          <button class="path-step" data-step="trouble" type="button"><span class="step-num">4</span><strong>Try tricky words</strong><small>Focus on what needs work</small></button>
+        </div>
+        <div class="mini-note"><span>✎</span><span>Use Apple Pencil by default. iPad recognises the handwriting and checks it automatically. Paper is always an option.</span></div>
+      </aside>
+
+      <section>
+        <article class="mission-card enter" id="meetView">
+          <p class="mission-kicker">Step 1 · Meet the words</p>
+          <h2>Meet this Cycle's words</h2>
+          <p class="prompt">Tap a card to hear the word. School groups make spelling patterns easier to notice.</p>
+          <div class="word-shelf" id="wordShelf"></div>
+          <div class="mission-actions">
+            <button class="primary-button" id="markAllMet" type="button">I've met all these words →</button>
+          </div>
+        </article>
+
+        <article class="mission-card" id="practiceView" hidden>
+          <div class="progress-track"><div class="progress-fill" id="practiceProgress"></div></div>
+          <p class="mission-kicker" id="practiceGroup">Step 2 · Practice</p>
+          <h2>Listen and build the whole word</h2>
+          <p class="prompt" id="practicePrompt"></p>
+          <div id="practiceArea"></div>
+          <p class="feedback" id="practiceFeedback" aria-live="polite"></p>
+          <div class="mission-actions">
+            <button class="secondary-button" id="practiceHint" type="button">Give me a hint</button>
+            <button class="primary-button" id="practiceNext" type="button" hidden>Next word →</button>
+          </div>
+        </article>
+
+        <article class="mission-card" id="paperIntroView" hidden>
+          <p class="mission-kicker">Step 3 · Dictation</p>
+          <h2>How would you like to write?</h2>
+          <p class="prompt">Neither mode shows the answers. We recommend writing with Apple Pencil so the iPad can recognise and check each word.</p>
+          <div class="mode-choice-grid">
+            <button class="mode-choice is-primary" id="startHandwriting" type="button">
+              <span class="mode-badge">BEST CHOICE</span><span class="mode-icon" aria-hidden="true">✍️</span>
+              <strong>iPad handwriting</strong><small>Write on the line and let the system check</small>
+            </button>
+            <button class="mode-choice" id="startPaper" type="button">
+              <span class="mode-icon" aria-hidden="true">📝</span>
+              <strong>Paper dictation</strong><small>Write on paper and check together at the end</small>
+            </button>
+          </div>
+        </article>
+
+        <article class="mission-card" id="paperTestView" hidden>
+          <div class="paper-test">
+            <p class="test-number" id="paperNumber">Word 1 of 20</p>
+            <button class="speak-orb" id="paperSpeak" type="button" aria-label="Play this word">♪</button>
+            <h2 id="dictationTitle">Listen, then write with Apple Pencil</h2>
+            <p class="prompt" id="dictationHelp">Listen again whenever you need. The answer stays hidden.</p>
+            <div class="handwriting-panel" id="handwritingPanel">
+              <label for="handwritingInput">Write directly on the line</label>
+              <input id="handwritingInput" class="handwriting-input" type="text" inputmode="text" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" enterkeyhint="done" aria-describedby="recognitionHelp recognitionFeedback" />
+              <small id="recognitionHelp">Apple Pencil Scribble turns your handwriting into letters, then the system checks the spelling.</small>
+              <p class="recognition-feedback" id="recognitionFeedback" aria-live="polite"></p>
+            </div>
+            <div class="test-dots" id="testDots"></div>
+            <div class="mission-actions">
+              <button class="secondary-button" id="paperPrev" type="button">← Previous</button>
+              <button class="primary-button" id="paperNext" type="button">Next →</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="mission-card" id="markView" hidden>
+          <p class="mission-kicker" id="markKicker">System check</p>
+          <h2 id="markTitle">Review the recognised words</h2>
+          <p class="prompt" id="markCopy">The system checks first. If iPad misread the handwriting, a parent can correct it here.</p>
+          <div class="mark-list" id="markList"></div>
+          <div class="mission-actions">
+            <button class="primary-button" id="savePaperResult" type="button" disabled>Save this result</button>
+          </div>
+        </article>
+
+        <article class="mission-card" id="resultView" hidden>
+          <p class="mission-kicker">Dictation complete</p>
+          <h2 id="resultTitle">Dictation complete</h2>
+          <p class="prompt" id="resultCopy"></p>
+          <div class="summary-strip">
+            <div class="summary-item"><small>Correct</small><strong id="resultRight">0</strong></div>
+            <div class="summary-item"><small>Try again</small><strong id="resultWrong">0</strong></div>
+            <div class="summary-item"><small>Reward</small><strong>+6★</strong></div>
+          </div>
+          <div class="mission-actions">
+            <button class="primary-button" id="reviewTrouble" type="button">Practise the tricky words</button>
+            <a class="secondary-button" href="../index.html">Back to Word Explorer</a>
+          </div>
+        </article>
+
+        <article class="mission-card" id="troubleView" hidden>
+          <p class="mission-kicker">Step 4 · Try again</p>
+          <h2 id="troubleTitle">Try the tricky words again</h2>
+          <p class="prompt" id="troubleCopy">Words missed in dictation gather here for another try.</p>
+          <div id="troubleArea"></div>
+          <p class="feedback" id="troubleFeedback" aria-live="polite"></p>
+          <div class="mission-actions">
+            <button class="secondary-button" id="troubleHint" type="button">Give me a hint</button>
+            <button class="primary-button" id="troubleNext" type="button" hidden>Next word →</button>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">G2 is for quiz prep: hints help you learn, and mock dictation shows what you can do on your own.</footer>
+  </div>
+
+  <div class="confetti" id="confetti" hidden></div>
+  <script src="./g2-word-data.js?v=4"></script>
+  <script src="./g2-stories.js?v=4"></script>
+  <script src="./g2-stars.js"></script>
+  <script src="./g2-prep-app.js?v=4"></script>
+  <script>
+    if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./sw.js").catch(() => {});
+  </script>
+</body>
+</html>

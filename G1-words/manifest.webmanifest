@@ -1,0 +1,22 @@
+{
+  "name": "Ruogu's Word Lab · G1 Review Islands",
+  "short_name": "G1 Review",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f7f4ec",
+  "theme_color": "#789581",
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

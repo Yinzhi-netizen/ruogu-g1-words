@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="G1 Review" />
+  <meta name="theme-color" content="#f7f4ec" />
+  <title>G1 Review Islands · Ruogu's Word Lab</title>
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="./icons/icon-180.png" />
+  <link rel="stylesheet" href="../wordlab.css?v=4" />
+</head>
+<body class="g1-page">
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="home-link" href="../index.html">
+        <span class="brand-mark">←</span>
+        <span class="brand-copy"><small>Ruogu's Word Lab</small><strong>Back to Word Explorer</strong></span>
+      </a>
+      <div class="star-pill"><span class="star">★</span><strong id="totalStars">0</strong><span>stars</span></div>
+    </header>
+
+    <section class="page-head">
+      <div>
+        <p class="eyebrow">G1 · Review Islands</p>
+        <h1>Review Islands</h1>
+        <p>Listen, find and spell as you meet your Grade 1 words again.</p>
+      </div>
+      <div class="summary-strip" aria-label="Review overview">
+        <div class="summary-item"><small>Revisited</small><strong id="seenCount">0</strong></div>
+        <div class="summary-item"><small>Spelling strong</small><strong id="strongCount">0</strong></div>
+        <div class="summary-item"><small>Stickers</small><strong id="stickerCount">0</strong></div>
+      </div>
+    </section>
+
+    <main class="mission-layout">
+      <aside class="side-panel">
+        <p class="eyebrow">Choose today's island</p>
+        <h2>Where shall we begin?</h2>
+        <p>Eight little stops take about five minutes. Words that need another visit come first.</p>
+        <div class="filter-stack" id="routeFilters">
+          <button class="filter-button is-active" data-route="core" type="button"><span>🌿 Spelling Woods</span><small>Core spellings</small></button>
+          <button class="filter-button" data-route="vocab" type="button"><span>🔎 Discovery Bay</span><small>Vocabulary</small></button>
+          <button class="filter-button" data-route="mixed" type="button"><span>⛵ Mystery Route</span><small>Mixed challenge</small></button>
+        </div>
+        <div class="mini-note"><span>💡</span><span>Hints are part of learning. A thoughtful correction still counts as progress.</span></div>
+      </aside>
+
+      <section>
+        <article class="mission-card enter" id="launchCard">
+          <p class="mission-kicker">Today's little trip</p>
+          <h2 id="launchTitle">Into the Spelling Woods</h2>
+          <p class="prompt" id="launchCopy">Listen for words and rebuild familiar spellings from start to finish.</p>
+          <div class="sticker-row" aria-hidden="true">
+            <span class="sticker">🌱</span><span class="sticker" style="--turn:5deg">🦆</span><span class="sticker">🔤</span>
+          </div>
+          <div class="mission-actions">
+            <button class="primary-button sage" id="startMission" type="button">Start 8 little stops →</button>
+          </div>
+        </article>
+
+        <article class="mission-card" id="missionCard" hidden>
+          <div class="progress-track"><div class="progress-fill" id="missionProgress"></div></div>
+          <p class="mission-kicker" id="activityLabel">Listen and find</p>
+          <h2 id="activityTitle">Listen. Which word is it?</h2>
+          <p class="prompt" id="activityPrompt"></p>
+          <div id="activityArea"></div>
+          <p class="feedback" id="feedback" aria-live="polite"></p>
+          <div class="mission-actions">
+            <button class="secondary-button" id="hintButton" type="button">Give me a hint</button>
+            <button class="primary-button sage" id="nextTask" type="button" hidden>Next stop →</button>
+          </div>
+        </article>
+
+        <article class="mission-card" id="finishCard" hidden>
+          <p class="mission-kicker">Trip complete</p>
+          <h2>Today's trip is complete</h2>
+          <p class="prompt" id="finishCopy">You met some old word friends again.</p>
+          <div class="sticker-row"><span class="sticker" id="earnedSticker">🌿</span></div>
+          <div class="summary-strip">
+            <div class="summary-item"><small>Completed</small><strong>8 stops</strong></div>
+            <div class="summary-item"><small>On my own</small><strong id="missionCorrect">0</strong></div>
+            <div class="summary-item"><small>Earned</small><strong>+5★</strong></div>
+          </div>
+          <div class="mission-actions">
+            <button class="primary-button sage" id="againButton" type="button">Take another route</button>
+            <a class="secondary-button" href="../index.html">Finish for today</a>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">G1 is for review: familiar words come back one little trip at a time.</footer>
+  </div>
+
+  <div class="confetti" id="confetti" hidden></div>
+  <script src="./g1-word-data.js?v=4"></script>
+  <script src="./g1-stories.js?v=4"></script>
+  <script src="./g1-stars.js"></script>
+  <script src="./g1-review-app.js?v=4"></script>
+  <script>
+    if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./sw.js").catch(() => {});
+  </script>
+</body>
+</html>
