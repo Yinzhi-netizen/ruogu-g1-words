@@ -1,10 +1,10 @@
 const cachePrefix = "ruogu-word-lab-home-";
-const cacheName = `${cachePrefix}v5`;
+const cacheName = `${cachePrefix}v6`;
 const legacyCacheName = "ruogu-g1-words-v1";
 const assets = [
   "./",
   "./index.html",
-  "./wordlab.css?v=4",
+  "./wordlab.css?v=5",
   "./manifest.webmanifest",
   "./G1-words/index.html",
   "./G1-words/g1-word-data.js?v=4",
@@ -19,7 +19,7 @@ const assets = [
   "./G2-words/g2-word-data.js?v=5",
   "./G2-words/g2-stories.js?v=5",
   "./G2-words/g2-stars.js",
-  "./G2-words/g2-prep-app.js?v=5",
+  "./G2-words/g2-prep-app.js?v=6",
   "./G2-words/manifest.webmanifest",
   "./G2-words/icons/icon-180.png",
   "./G2-words/icons/icon-192.png",

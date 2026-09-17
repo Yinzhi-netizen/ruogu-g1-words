@@ -1,5 +1,5 @@
 const cachePrefix = "ruogu-word-lab-g2-";
-const cacheName = `${cachePrefix}v6`;
+const cacheName = `${cachePrefix}v7`;
 const assets = [
   "./",
   "./index.html",
@@ -7,7 +7,7 @@ const assets = [
   "./g2-word-data.js?v=5",
   "./g2-stories.js?v=5",
   "./g2-stars.js",
-  "./g2-prep-app.js?v=5",
+  "./g2-prep-app.js?v=6",
   "./manifest.webmanifest",
   "./icons/icon-180.png",
   "./icons/icon-192.png",

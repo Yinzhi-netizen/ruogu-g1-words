@@ -91,9 +91,11 @@
   }
 
   function chooseCycle() {
+    const requestedId = new URLSearchParams(window.location.search).get("cycle");
+    const requested = cycles.find((cycle) => cycle.id === requestedId);
     const stored = cycles.find((cycle) => cycle.id === saved.currentCycle);
     const publishedCurrent = cycles.find((cycle) => cycle.status === "current");
-    const current = publishedCurrent || stored || cycles[cycles.length - 1];
+    const current = requested || publishedCurrent || stored || cycles[cycles.length - 1];
     saved.currentCycle = current.id;
     if (!saved.cycles[current.id]) saved.cycles[current.id] = { words: {}, dictationHistory: [], metAll: false };
     const state = saved.cycles[current.id];
@@ -165,9 +167,11 @@
     els.paperCount.textContent = states.filter((item) => item.paperResult === "correct").length;
     els.cycleTitle.textContent = `${currentCycle.label} · ${currentCycle.title}`;
     els.cycleWordCount.textContent = cycleWords.length;
-    els.cycleSub.textContent = currentCycle.testDate
-      ? `Quiz date: ${currentCycle.testDate} · Meet the words, practise, then take an iPad handwriting dictation.`
-      : "Quiz date not added yet · Meet the words, practise, then take an iPad handwriting dictation.";
+    els.cycleSub.textContent = currentCycle.status === "current"
+      ? currentCycle.testDate
+        ? `Quiz date: ${currentCycle.testDate} · Meet the words, practise, then take an iPad handwriting dictation.`
+        : "Current Cycle · Meet the words, practise, then take an iPad handwriting dictation."
+      : "Review Cycle · Revisit the words, practise, or take another handwriting dictation.";
     updatePathStatus();
   }
 

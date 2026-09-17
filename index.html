@@ -10,7 +10,7 @@
   <title>Ruogu's Word Lab</title>
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="apple-touch-icon" href="./G1-words/icons/icon-180.png" />
-  <link rel="stylesheet" href="./wordlab.css?v=4" />
+  <link rel="stylesheet" href="./wordlab.css?v=5" />
 </head>
 <body class="home-page">
   <div class="site-shell">
@@ -33,37 +33,50 @@
         </div>
         <div class="map-illustration" aria-label="Word exploration map">
           <div class="map-island one">Review Island</div>
-          <div class="map-island two">Cycle 4</div>
+          <div class="map-island two">New Cycles</div>
           <div class="map-island three">Star Camp</div>
           <span class="map-boat" aria-hidden="true">⛵</span>
         </div>
       </section>
 
-      <section class="route-grid" aria-label="Choose a learning route">
-        <article class="route-card g2" data-stamp="THIS WEEK">
-          <div class="route-icon" aria-hidden="true">✎</div>
-          <p class="eyebrow">Getting ready</p>
-          <h2 id="currentCycleTitle">Cycle 4 Spelling Quiz</h2>
-          <p>Meet the words, practise the spellings, then take an iPad handwriting dictation.</p>
-          <div class="route-meta">
-            <span class="tag" id="currentCycleCount">18 words</span>
-            <span class="tag">iPad handwriting</span>
-            <span class="tag" id="currentCycleProgress">Not started</span>
+      <section class="learning-sections" aria-label="Choose a learning route">
+        <article class="learning-zone g2-zone" data-stamp="G2 WORDS">
+          <header class="zone-head">
+            <div class="route-icon" aria-hidden="true">✎</div>
+            <div class="zone-title">
+              <p class="eyebrow">Quiz preparation</p>
+              <h2>Grade 2 Spelling Missions</h2>
+              <p>Choose the current Cycle to prepare, or revisit an earlier Cycle whenever you want.</p>
+            </div>
+            <div class="zone-count"><strong id="g2CycleTotal">2</strong><span>Cycles</span></div>
+          </header>
+          <div class="cycle-grid" id="cycleGrid" aria-label="Grade 2 spelling Cycles">
+            <a class="cycle-entry is-current" href="./G2-words/index.html?cycle=cycle4-2026-official">
+              <span class="cycle-status">Current</span>
+              <strong>Cycle 4</strong>
+              <small>18 words · Ready to begin</small>
+              <span class="cycle-arrow" aria-hidden="true">→</span>
+            </a>
           </div>
-          <a class="primary-button" href="./G2-words/index.html">Prepare for the quiz <span aria-hidden="true">→</span></a>
         </article>
 
-        <article class="route-card g1" data-stamp="EXPLORE">
-          <div class="route-icon" aria-hidden="true">⌁</div>
-          <p class="eyebrow">Easy review</p>
-          <h2>Explore the Word Islands</h2>
-          <p>Listen, find and spell. A few playful minutes bring your Grade 1 words back.</p>
-          <div class="route-meta">
-            <span class="tag">516 old friends</span>
-            <span class="tag">8 stops per trip</span>
-            <span class="tag" id="g1Progress">Choose any island</span>
+        <article class="learning-zone g1-zone" data-stamp="G1 WORDS">
+          <header class="zone-head">
+            <div class="route-icon" aria-hidden="true">⌁</div>
+            <div class="zone-title">
+              <p class="eyebrow">Playful review</p>
+              <h2>Grade 1 Word Islands</h2>
+              <p>Listen, find and spell. Short adventures bring familiar Grade 1 words back.</p>
+            </div>
+          </header>
+          <div class="g1-route-row">
+            <div class="route-meta">
+              <span class="tag">516 old friends</span>
+              <span class="tag">8 stops per trip</span>
+              <span class="tag" id="g1Progress">Choose any island</span>
+            </div>
+            <a class="primary-button sage" href="./G1-words/index.html">Explore G1 words <span aria-hidden="true">→</span></a>
           </div>
-          <a class="primary-button sage" href="./G1-words/index.html">Start exploring <span aria-hidden="true">→</span></a>
         </article>
       </section>
     </main>
@@ -98,17 +111,40 @@
         const revisited = g1Words.filter((item) => Number(item.attempts || 0) > 0).length;
         if (revisited) document.getElementById("g1Progress").textContent = `${revisited} ${revisited === 1 ? "word" : "words"} revisited`;
 
-        const cycles = window.RUOGU_G2_CYCLES || [];
-        const cycle = cycles.find((item) => item.status === "current") || cycles[cycles.length - 1];
-        if (cycle) {
-          const groups = (window.RUOGU_G2_WORD_GROUPS || []).filter((group) => cycle.groupIds.includes(group.id));
-          const count = new Set(groups.flatMap((group) => group.words.map((word) => word.toLowerCase()))).size;
-          document.getElementById("currentCycleTitle").textContent = `${cycle.label} Spelling Quiz`;
-          document.getElementById("currentCycleCount").textContent = `${count} words`;
-          const cycleState = g2 && g2.cycles && g2.cycles[cycle.id];
-          const tested = cycleState && cycleState.words ? Object.values(cycleState.words).filter((item) => item.paperResult).length : 0;
-          if (tested) document.getElementById("currentCycleProgress").textContent = `${tested}/${count} tested`;
+        renderCycles(g2);
+      }
+
+      function renderCycles(g2) {
+        const cycles = [...(window.RUOGU_G2_CYCLES || [])].reverse();
+        const allGroups = window.RUOGU_G2_WORD_GROUPS || [];
+        const grid = document.getElementById("cycleGrid");
+        document.getElementById("g2CycleTotal").textContent = cycles.length;
+        if (!cycles.length) {
+          grid.innerHTML = '<p class="empty-cycle-copy">The next spelling Cycle will appear here.</p>';
+          return;
         }
+
+        grid.innerHTML = cycles.map((cycle) => {
+          const groups = allGroups.filter((group) => cycle.groupIds.includes(group.id));
+          const count = new Set(groups.flatMap((group) => group.words.map((word) => word.toLowerCase()))).size;
+          const state = g2 && g2.cycles && g2.cycles[cycle.id];
+          const wordStates = state && state.words ? Object.values(state.words) : [];
+          const tested = wordStates.filter((item) => item.paperResult).length;
+          const practised = wordStates.filter((item) => Number(item.practiceCorrect || 0) > 0).length;
+          const progress = tested
+            ? `${tested}/${count} dictation words checked`
+            : practised
+              ? `${practised}/${count} words practised`
+              : cycle.status === "current" ? "Ready to prepare" : "Ready to review";
+          const isCurrent = cycle.status === "current";
+          return `
+            <a class="cycle-entry${isCurrent ? " is-current" : ""}" href="./G2-words/index.html?cycle=${encodeURIComponent(cycle.id)}">
+              <span class="cycle-status">${isCurrent ? "Current" : "Review"}</span>
+              <strong>${cycle.label}</strong>
+              <small>${count} words · ${progress}</small>
+              <span class="cycle-arrow" aria-hidden="true">→</span>
+            </a>`;
+        }).join("");
       }
 
       const hour = new Date().getHours();
