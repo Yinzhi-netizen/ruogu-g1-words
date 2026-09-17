@@ -7,10 +7,22 @@ window.RUOGU_G2_CYCLES = [
     title: "Spelling + Heart Words",
     schoolYear: "2026-2027",
     testDate: null,
-    status: "current",
+    status: "review",
     groupIds: [
       "cycle3-2026-spelling-words",
       "cycle3-2026-heart-words"
+    ]
+  },
+  {
+    id: "cycle4-2026-official",
+    label: "Cycle 4",
+    title: "Spelling + Heart Words",
+    schoolYear: "2026-2027",
+    testDate: null,
+    status: "current",
+    groupIds: [
+      "cycle4-2026-spelling-words",
+      "cycle4-2026-heart-words"
     ]
   }
 ];
@@ -40,6 +52,30 @@ window.RUOGU_G2_WORD_GROUPS = [
     date: "2026-09",
     subject: "Heart Words",
     words: ["father", "water", "today", "very"],
+  },
+  {
+    id: "cycle4-2026-spelling-words",
+    title: "Cycle 4 · Spelling Words",
+    track: "core",
+    source: "../G2词表原件/Cycle 4 Spelling.pdf",
+    cycle: "cycle4-2026-official",
+    date: "2026-09-17/24",
+    subject: "Spelling Words",
+    words: [
+      "need", "feet", "see", "tree", "eel",
+      "mean", "team", "eat", "each", "tea", "flea",
+      "money", "turkey", "hockey"
+    ],
+  },
+  {
+    id: "cycle4-2026-heart-words",
+    title: "Cycle 4 · Heart Words",
+    track: "core",
+    source: "../G2词表原件/Cycle 4 Spelling.pdf",
+    cycle: "cycle4-2026-official",
+    date: "2026-09-17/24",
+    subject: "Heart Words",
+    words: ["above", "among", "again", "against"],
   },
 ];
 

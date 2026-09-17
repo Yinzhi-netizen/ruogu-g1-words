@@ -1,13 +1,13 @@
 const cachePrefix = "ruogu-word-lab-g2-";
-const cacheName = `${cachePrefix}v5`;
+const cacheName = `${cachePrefix}v6`;
 const assets = [
   "./",
   "./index.html",
   "../wordlab.css?v=4",
-  "./g2-word-data.js?v=4",
-  "./g2-stories.js?v=4",
+  "./g2-word-data.js?v=5",
+  "./g2-stories.js?v=5",
   "./g2-stars.js",
-  "./g2-prep-app.js?v=4",
+  "./g2-prep-app.js?v=5",
   "./manifest.webmanifest",
   "./icons/icon-180.png",
   "./icons/icon-192.png",

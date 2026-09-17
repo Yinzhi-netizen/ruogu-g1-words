@@ -92,7 +92,8 @@
 
   function chooseCycle() {
     const stored = cycles.find((cycle) => cycle.id === saved.currentCycle);
-    const current = stored || cycles.find((cycle) => cycle.status === "current") || cycles[cycles.length - 1];
+    const publishedCurrent = cycles.find((cycle) => cycle.status === "current");
+    const current = publishedCurrent || stored || cycles[cycles.length - 1];
     saved.currentCycle = current.id;
     if (!saved.cycles[current.id]) saved.cycles[current.id] = { words: {}, dictationHistory: [], metAll: false };
     const state = saved.cycles[current.id];
