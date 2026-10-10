@@ -10,7 +10,7 @@
   <title>Ruogu's Word Lab</title>
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="apple-touch-icon" href="./G1-words/icons/icon-180.png" />
-  <link rel="stylesheet" href="./wordlab.css?v=5" />
+  <link rel="stylesheet" href="./wordlab.css?v=6" />
 </head>
 <body class="home-page">
   <div class="site-shell">
@@ -29,7 +29,7 @@
         <div>
           <p class="eyebrow" id="greeting">Start with one little mission</p>
           <h1 class="display-title">Learn new words.<br><em>Meet old friends again.</em></h1>
-          <p class="lede">G2 gets you ready for your next spelling quiz. G1 brings familiar words back through short, playful adventures.</p>
+          <p class="lede">G2 gets you ready for your next spelling quiz. Book Words help you crack the tricky words from your own books. G1 brings familiar words back through short, playful adventures.</p>
         </div>
         <div class="map-illustration" aria-label="Word exploration map">
           <div class="map-island one">Review Island</div>
@@ -60,6 +60,19 @@
           </div>
         </article>
 
+        <article class="learning-zone book-zone" data-stamp="BOOK WORDS">
+          <header class="zone-head">
+            <div class="route-icon" aria-hidden="true">🔍</div>
+            <div class="zone-title">
+              <p class="eyebrow">Words from my own books</p>
+              <h2>Book Word Detective</h2>
+              <p>Every book you finish leaves some tricky words behind. Crack them here so the next book feels easier.</p>
+            </div>
+            <div class="zone-count"><strong id="bookTotal">1</strong><span>Books</span></div>
+          </header>
+          <div class="cycle-grid" id="bookGrid" aria-label="Books read on my own"></div>
+        </article>
+
         <article class="learning-zone g1-zone" data-stamp="G1 WORDS">
           <header class="zone-head">
             <div class="route-icon" aria-hidden="true">⌁</div>
@@ -85,6 +98,7 @@
   </div>
 
   <script src="./G2-words/g2-word-data.js?v=5"></script>
+  <script src="./Book-words/book-word-data.js?v=1"></script>
   <script>
     (function () {
       const PROFILE_KEY = "ruogu-literacy-profiles-v1";
@@ -112,6 +126,34 @@
         if (revisited) document.getElementById("g1Progress").textContent = `${revisited} ${revisited === 1 ? "word" : "words"} revisited`;
 
         renderCycles(g2);
+        renderBooks(english && english.books);
+      }
+
+      function renderBooks(bookProgress) {
+        const books = [...(window.RUOGU_BOOKS || [])].reverse();
+        const grid = document.getElementById("bookGrid");
+        document.getElementById("bookTotal").textContent = books.length;
+        if (!books.length) {
+          grid.innerHTML = '<p class="empty-cycle-copy">The next book you finish will appear here.</p>';
+          return;
+        }
+
+        grid.innerHTML = books.map((book, index) => {
+          const state = bookProgress && bookProgress.books && bookProgress.books[book.id];
+          const wordStates = state && state.words ? Object.values(state.words) : [];
+          const solved = wordStates.filter((item) => Number(item.independentCorrect || 0) >= 2 && !item.needsReview).length;
+          const met = wordStates.filter((item) => item.met).length;
+          const progress = solved ? `${solved}/${book.words.length} solved` : met ? `${met}/${book.words.length} met` : "Ready to crack";
+          const isLatest = index === 0;
+          return `
+            <a class="cycle-entry book-entry${isLatest ? " is-current" : ""}" href="./Book-words/index.html?book=${encodeURIComponent(book.id)}">
+              <span class="cycle-status">${isLatest ? "Latest book" : "Review"}</span>
+              <span class="book-cover" aria-hidden="true">${book.cover}</span>
+              <strong>${book.shortTitle}</strong>
+              <small>${book.words.length} words · ${progress}</small>
+              <span class="cycle-arrow" aria-hidden="true">→</span>
+            </a>`;
+        }).join("");
       }
 
       function renderCycles(g2) {

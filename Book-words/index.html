@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Book Words" />
+  <meta name="theme-color" content="#f7f4ec" />
+  <title>Word Detective · Ruogu's Word Lab</title>
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="./icons/icon-180.png" />
+  <link rel="stylesheet" href="../wordlab.css?v=6" />
+</head>
+<body class="book-page">
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="home-link" href="../index.html">
+        <span class="brand-mark">←</span>
+        <span class="brand-copy"><small>Ruogu's Word Lab</small><strong>Back to Word Explorer</strong></span>
+      </a>
+      <div class="star-pill"><span class="star">★</span><strong id="totalStars">0</strong><span>stars</span></div>
+    </header>
+
+    <section class="page-head">
+      <div>
+        <p class="eyebrow">Book Words · Word Detective</p>
+        <h1>Word Detective</h1>
+        <p>Words you met in your own books. Crack them, and the next book gets easier.</p>
+      </div>
+      <div class="summary-strip">
+        <div class="summary-item"><small>Met</small><strong id="metCount">0</strong></div>
+        <div class="summary-item"><small>Getting it</small><strong id="gettingCount">0</strong></div>
+        <div class="summary-item"><small>Solved</small><strong id="solvedCount">0</strong></div>
+      </div>
+    </section>
+
+    <section class="cycle-banner book-banner">
+      <div>
+        <p class="eyebrow" style="color:rgba(255,255,255,.7)" id="bookMeta">Book</p>
+        <h2 id="bookTitle">Book</h2>
+        <p id="bookSub"></p>
+      </div>
+      <div class="cycle-count"><strong id="bookWordCount">0</strong><small>book words</small></div>
+    </section>
+
+    <main class="prep-layout">
+      <aside class="side-panel">
+        <p class="eyebrow">Detective path</p>
+        <h2>Crack the words</h2>
+        <div class="path-list" id="pathList">
+          <button class="path-step is-active" data-step="meet" type="button"><span class="step-num">1</span><strong>Meet the words</strong><small>Chunks, tails and clues</small></button>
+          <button class="path-step" data-step="case" type="button"><span class="step-num">2</span><strong>Solve a case</strong><small>8 quick clues</small></button>
+          <button class="path-step" data-step="file" type="button"><span class="step-num">3</span><strong>Case file</strong><small>See what is solved</small></button>
+        </div>
+        <div class="mini-note"><span>🔍</span><span>Stuck on a long word? Cut it into chunks. Strange ending? Take off the tail first.</span></div>
+      </aside>
+
+      <section>
+        <article class="mission-card enter" id="meetView">
+          <p class="mission-kicker">Step 1 · Meet the words</p>
+          <h2>Words from this book</h2>
+          <p class="prompt">Tap a card to hear it and see what it means.</p>
+          <div id="meetShelf"></div>
+          <div class="mission-actions">
+            <button class="primary-button" id="toCase" type="button">I'm ready for a case →</button>
+          </div>
+        </article>
+
+        <article class="mission-card" id="caseView" hidden>
+          <div class="progress-track"><div class="progress-fill" id="caseProgress"></div></div>
+          <p class="mission-kicker" id="activityLabel">Clue</p>
+          <h2 id="activityTitle">What does it mean?</h2>
+          <p class="prompt" id="activityPrompt"></p>
+          <div id="activityArea"></div>
+          <p class="feedback" id="feedback" aria-live="polite"></p>
+          <div class="mission-actions">
+            <button class="secondary-button" id="hintButton" type="button">Give me a clue</button>
+            <button class="primary-button" id="nextTask" type="button" hidden>Next clue →</button>
+          </div>
+        </article>
+
+        <article class="mission-card" id="finishView" hidden>
+          <p class="mission-kicker">Case closed</p>
+          <h2>Case closed!</h2>
+          <p class="prompt" id="finishCopy"></p>
+          <div class="sticker-row"><span class="sticker">🔍</span></div>
+          <div class="summary-strip">
+            <div class="summary-item"><small>Clues</small><strong id="finishTotal">8</strong></div>
+            <div class="summary-item"><small>On my own</small><strong id="finishCorrect">0</strong></div>
+            <div class="summary-item"><small>Earned</small><strong>+5★</strong></div>
+          </div>
+          <div class="mission-actions">
+            <button class="primary-button" id="againButton" type="button">Solve another case</button>
+            <button class="secondary-button" id="toFile" type="button">Open the case file</button>
+          </div>
+        </article>
+
+        <article class="mission-card" id="fileView" hidden>
+          <p class="mission-kicker">Step 3 · Case file</p>
+          <h2>Case file</h2>
+          <p class="prompt">A word is solved when you get it right on your own twice.</p>
+          <div class="mark-list" id="fileList"></div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">Book words come from the books you read on your own. Every word you crack makes the next book easier.</footer>
+  </div>
+
+  <div class="confetti" id="confetti" hidden></div>
+  <script src="./book-word-data.js?v=1"></script>
+  <script src="./book-stars.js?v=1"></script>
+  <script src="./book-app.js?v=1"></script>
+  <script>
+    if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./sw.js").catch(() => {});
+  </script>
+</body>
+</html>

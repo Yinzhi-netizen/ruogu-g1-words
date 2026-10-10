@@ -1,10 +1,10 @@
 const cachePrefix = "ruogu-word-lab-home-";
-const cacheName = `${cachePrefix}v6`;
+const cacheName = `${cachePrefix}v7`;
 const legacyCacheName = "ruogu-g1-words-v1";
 const assets = [
   "./",
   "./index.html",
-  "./wordlab.css?v=5",
+  "./wordlab.css?v=6",
   "./manifest.webmanifest",
   "./G1-words/index.html",
   "./G1-words/g1-word-data.js?v=4",
@@ -23,7 +23,15 @@ const assets = [
   "./G2-words/manifest.webmanifest",
   "./G2-words/icons/icon-180.png",
   "./G2-words/icons/icon-192.png",
-  "./G2-words/icons/icon-512.png"
+  "./G2-words/icons/icon-512.png",
+  "./Book-words/index.html",
+  "./Book-words/book-word-data.js?v=1",
+  "./Book-words/book-stars.js?v=1",
+  "./Book-words/book-app.js?v=1",
+  "./Book-words/manifest.webmanifest",
+  "./Book-words/icons/icon-180.png",
+  "./Book-words/icons/icon-192.png",
+  "./Book-words/icons/icon-512.png"
 ];
 
 self.addEventListener("install", (event) => {

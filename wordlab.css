@@ -877,3 +877,96 @@ a { color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+/* Book Words · 课外书生词 */
+.book-zone {
+  background:
+    radial-gradient(circle at 88% 0%, rgba(255,255,255,.72), transparent 17rem),
+    linear-gradient(145deg, #fffefa 0%, #f6e8cc 100%);
+}
+.book-zone .route-icon { background: #c9963f; }
+.book-zone .zone-count { border-color: rgba(201,150,63,.25); }
+.book-zone .zone-count strong { color: #8a6326; }
+.book-entry .cycle-status { background: var(--apricot-soft); color: #8a6326; }
+.book-entry.is-current .cycle-status, .book-entry.is-current .cycle-arrow { background: #c9963f; color: white; }
+.book-entry.is-current { border-color: rgba(201,150,63,.4); }
+.book-entry strong { font-size: 23px; line-height: 1.2; }
+.book-entry .book-cover { font-size: 30px; margin-bottom: 6px; }
+
+.book-page .mission-kicker { color: #9a6d27; }
+.book-page .progress-fill { background: linear-gradient(90deg, var(--apricot), #c9963f); }
+.book-page .path-step.is-active { background: var(--apricot-soft); border-color: rgba(201,150,63,.3); color: #7a5520; }
+.book-banner { background: linear-gradient(135deg, #8a6326 0%, #c9963f 100%); }
+
+.kind-heading { margin: 26px 0 10px; text-align: left; }
+.kind-heading:first-child { margin-top: 6px; }
+.kind-heading .eyebrow { margin: 0; color: #8a6326; }
+.kind-heading small { color: var(--muted); font-size: 13px; }
+.kind-heading + .word-shelf { margin-top: 0; }
+
+.book-note { position: relative; min-height: 96px; padding-right: 54px; }
+.book-note .book-emoji { position: absolute; right: 14px; top: 14px; font-size: 28px; }
+.book-note .reveal { display: none; }
+.book-note.is-open .reveal { display: block; }
+.book-note .reveal b { display: block; margin-bottom: 3px; color: var(--ink); font-size: 16px; }
+.book-note .reveal em { display: block; margin-bottom: 3px; color: #8a6326; font-style: normal; font-weight: 800; }
+.book-note.is-seen { background: var(--apricot-soft); }
+
+.chunked .chunk { color: var(--lake-dark); }
+.chunked .chunk.alt { color: #b0702b; }
+.chunked .chunk + .chunk { margin-left: .14em; }
+.chunked .chunk.tail { padding: 0 .12em; border-radius: 8px; background: var(--apricot-soft); color: #9a5a22; }
+.chunked.inline { font-family: Georgia, serif; font-size: 22px; }
+.book-word { letter-spacing: .02em; }
+
+.clue-sentence {
+  max-width: 640px;
+  margin: 0 auto 26px;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: clamp(22px, 3.4vw, 30px);
+  line-height: 1.5;
+}
+.clue-sentence .blank { color: #b0702b; letter-spacing: .04em; }
+
+.cut-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 8px 0 26px; }
+.cut-letter {
+  min-width: 48px;
+  height: 64px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--white);
+  box-shadow: 0 5px 0 rgba(38,58,61,.1);
+  font-family: Georgia, serif;
+  font-size: 32px;
+  cursor: pointer;
+}
+.cut-letter:disabled { cursor: default; }
+.cut-letter:first-child:disabled { opacity: 1; }
+.cut-letter.is-tail { background: var(--apricot-soft); border-color: #c9963f; color: #9a5a22; }
+
+.file-row { width: 100%; border: 1px solid var(--line); cursor: pointer; font: inherit; text-align: left; }
+.file-row > span:first-child { font-size: 26px; }
+.file-status { padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 900; white-space: nowrap; }
+.file-status.is-new { background: var(--paper-deep); color: var(--muted); }
+.file-status.is-getting { background: var(--apricot-soft); color: #8a6326; }
+.file-status.is-solved { background: var(--sage); color: white; }
+
+@media (max-width: 640px) {
+  .cut-letter { min-width: 36px; height: 52px; font-size: 26px; }
+  .file-row { grid-template-columns: 34px 1fr auto; }
+  .file-row .file-status { grid-column: auto; }
+}
+
+/* 生词卡片里的音节片段需保持行内、沿用大字号（覆盖 .word-note span 的块级小字） */
+.book-note strong.chunked { padding-right: 4px; }
+.book-note .chunked .chunk { display: inline; margin-top: 0; font-size: inherit; line-height: 1.2; }
+.book-note .chunked .chunk:not(.alt):not(.tail) { color: var(--lake-dark); }
+.book-note .chunked .chunk.alt { color: #b0702b; }
+.book-note .chunked .chunk.tail { color: #9a5a22; }
+.book-note .book-emoji { margin-top: 0; }
+.book-entry.is-current {
+  border-color: rgba(201,150,63,.45);
+  background: linear-gradient(145deg, #fdfcf7 0%, #f3e0b8 100%);
+  box-shadow: 0 7px 0 rgba(201,150,63,.2);
+}
+.book-entry .book-cover { margin-top: 26px; line-height: 1; }
