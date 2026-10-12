@@ -73,6 +73,25 @@
           <div class="cycle-grid" id="bookGrid" aria-label="Books read on my own"></div>
         </article>
 
+        <article class="learning-zone book-zone nate-zone" data-stamp="NATE WORDS">
+          <header class="zone-head">
+            <div class="route-icon" aria-hidden="true">🥞</div>
+            <div class="zone-title">
+              <p class="eyebrow">Play any time, any length</p>
+              <h2>Nate's Pancake Words</h2>
+              <p>Pancakes fly. Swipe the one with the right word. Only words that really appear in the books.</p>
+            </div>
+          </header>
+          <div class="g1-route-row">
+            <div class="route-meta">
+              <span class="tag">33 books</span>
+              <span class="tag" id="nateWordTotal">400+ words</span>
+              <span class="tag" id="nateProgress">The pan is hot</span>
+            </div>
+            <a class="primary-button" style="background:#c9963f;box-shadow:0 7px 0 #8a6326" href="./Nate-words/index.html">Slice some pancakes <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+
         <article class="learning-zone g1-zone" data-stamp="G1 WORDS">
           <header class="zone-head">
             <div class="route-icon" aria-hidden="true">⌁</div>
@@ -99,6 +118,7 @@
 
   <script src="./G2-words/g2-word-data.js?v=5"></script>
   <script src="./Book-words/book-word-data.js?v=1"></script>
+  <script src="./Nate-words/nate-word-data.js?v=3"></script>
   <script>
     (function () {
       const PROFILE_KEY = "ruogu-literacy-profiles-v1";
@@ -127,6 +147,20 @@
 
         renderCycles(g2);
         renderBooks(english && english.books);
+        renderNate(english && english.nate);
+      }
+
+      function renderNate(nate) {
+        const keys = new Set();
+        (window.NATE_BOOKS || []).forEach((book) => {
+          const confirmed = book.bookWordsId && (window.RUOGU_BOOKS || []).find((item) => item.id === book.bookWordsId);
+          (confirmed ? confirmed.words : book.words).forEach((item) => keys.add(item.word.toLowerCase()));
+        });
+        if (keys.size) document.getElementById("nateWordTotal").textContent = `${keys.size} words`;
+        if (!nate || !nate.words) return;
+        const known = Object.entries(nate.words).filter(([key, item]) => keys.has(key) && Number(item.level || 0) >= 4).length;
+        const best = Number(nate.best || 0);
+        document.getElementById("nateProgress").textContent = `${known} known${best ? ` · best round ${best}` : ""}`;
       }
 
       function renderBooks(bookProgress) {

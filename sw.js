@@ -1,5 +1,5 @@
 const cachePrefix = "ruogu-word-lab-home-";
-const cacheName = `${cachePrefix}v7`;
+const cacheName = `${cachePrefix}v9`;
 const legacyCacheName = "ruogu-g1-words-v1";
 const assets = [
   "./",
@@ -31,7 +31,16 @@ const assets = [
   "./Book-words/manifest.webmanifest",
   "./Book-words/icons/icon-180.png",
   "./Book-words/icons/icon-192.png",
-  "./Book-words/icons/icon-512.png"
+  "./Book-words/icons/icon-512.png",
+  "./Nate-words/index.html",
+  "./Nate-words/nate.css?v=3",
+  "./Nate-words/nate-word-data.js?v=3",
+  "./Nate-words/nate-stars.js?v=1",
+  "./Nate-words/nate-app.js?v=3",
+  "./Nate-words/manifest.webmanifest",
+  "./Nate-words/icons/icon-180.png",
+  "./Nate-words/icons/icon-192.png",
+  "./Nate-words/icons/icon-512.png"
 ];
 
 self.addEventListener("install", (event) => {
