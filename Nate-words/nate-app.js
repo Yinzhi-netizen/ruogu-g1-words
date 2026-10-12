@@ -1,6 +1,7 @@
-// Nate's Pancake Words — 生存街机版。
-// 无每日任务：词从池子里按掌握度加权随机抽（错的词多飞、完全掌握的词少飞但不绝迹），
-// 3 条命一局，计分冲最高分。星星仍走星河书旅共享池。
+// Nate's Pancake Words — 破案模式 + Sludge 养成版。
+// 一局 = 一个小案子：连续切对 = 收集证物，集齐破案揪出"凶手"。
+// 切对的煎饼喂给 Sludge：吃得越多长得越大，还能换装（海龙队球衣是终极收藏）。
+// 无每日任务；案件进度跨session保留，命没了只是"线索断了"，证物不丢。
 (function () {
   const BOOKS = window.NATE_BOOKS || [];
   const BOOK_WORDS = window.RUOGU_BOOKS || [];
@@ -12,25 +13,62 @@
   const GRAVITY = 380;
   const GOLD_CHANCE = 0.09;
   const WEIGHTS = { unseen: 3.2, learning: 2.4, known: 1.0, mastered: 0.35 };
+  const CASE_GOAL = 8;
+  const SLUDGE_LEVELS = [
+    { fed: 0, name: "Puppy", scale: 0.8 },
+    { fed: 25, name: "Sniffer", scale: 0.92 },
+    { fed: 60, name: "Tracker", scale: 1.02 },
+    { fed: 120, name: "Detective Dog", scale: 1.12 },
+    { fed: 220, name: "Super Sniffer", scale: 1.22 },
+    { fed: 380, name: "Neighborhood Legend", scale: 1.34 }
+  ];
+  const SLUDGE_ITEMS = [
+    { id: "hat", emoji: "🎩", slot: "top", name: "Detective hat", how: "Close your first case", done: (s) => s.cases.solved >= 1 },
+    { id: "bone", emoji: "🦴", slot: "side", name: "Juicy bone", how: "Feed Sludge 25 pancakes", done: (s) => s.sludge.fed >= 25 },
+    { id: "ball", emoji: "⚽", slot: "side", name: "Football", how: "Sludge reaches level 2", done: () => sludgeLevel() >= 2 },
+    { id: "scarf", emoji: "🧣", slot: "top", name: "Red scarf", how: "Close 3 cases", done: (s) => s.cases.solved >= 3 },
+    { id: "medal", emoji: "🥇", slot: "top", name: "Gold medal", how: "Slice a golden pancake", done: (s) => s.sludge.golds >= 1 },
+    { id: "shades", emoji: "🕶️", slot: "top", name: "Cool shades", how: "Close 5 cases", done: (s) => s.cases.solved >= 5 },
+    { id: "megaphone", emoji: "📣", slot: "side", name: "Coach whistle", how: "Sludge reaches level 3", done: () => sludgeLevel() >= 3 },
+    { id: "jersey", emoji: "👕", slot: "body", name: "Hailong jersey", how: "Close 8 cases", done: (s) => s.cases.solved >= 8, team: true },
+    { id: "party", emoji: "🥳", slot: "top", name: "Party hat", how: "Sludge reaches level 4", done: () => sludgeLevel() >= 4 },
+    { id: "badge", emoji: "🎖️", slot: "top", name: "Detective badge", how: "Close 20 cases", done: (s) => s.cases.solved >= 20 }
+  ];
+  const CASE_TITLES = [
+    "The Case of the Missing Pancakes", "The Case of the Vanishing Ball", "The Case of the Squeaky Door",
+    "The Case of the Hungry Cat", "The Case of the Lost Whistle", "The Case of the Muddy Footprints",
+    "The Case of the Sticky Syrup", "The Case of the Sneaky Raccoon", "The Case of the Backyard Mystery",
+    "The Case of the Torn Note", "The Case of the Empty Food Bowl", "The Case of the Night Noise",
+    "The Case of the Missing Sock", "The Case of the Runaway Hat", "The Case of the Peculiar Smell",
+    "The Case of the Hidden Bone", "The Case of the Rainy Day Clue", "The Case of the Crumpled Map",
+    "The Case of the Footprint in the Flour", "The Case of the Barking Midnight", "The Case of the Wobbly Fence",
+    "The Case of the Tricky Trail", "The Case of the Whispering Bushes", "The Case of the Slow Snail"
+  ];
+  const CULPRITS = [
+    { name: "Hex", emoji: "🐈", line: "Hex just wanted a snack. Now he is sleeping on it." },
+    { name: "Big Hex", emoji: "🐈‍⬛", line: "Big Hex sat on it. He refuses to move." },
+    { name: "Rosamond", emoji: "🐈‍⬛", line: "Rosamond took it for her cats. Of course she did." },
+    { name: "Fang", emoji: "🦷", line: "Fang took it to cheer up Harry. A good dog, mostly." },
+    { name: "Harry", emoji: "👦", line: "Harry was scared to say he lost it. Again." },
+    { name: "Oliver", emoji: "🧒", line: "Oliver followed Nate and forgot to give it back." },
+    { name: "Claude", emoji: "🙋‍♂️", line: "Claude lost it. Some things never change." },
+    { name: "Esmeralda", emoji: "💡", line: "Esmeralda knew all along. She was testing Nate." },
+    { name: "Pip", emoji: "🤫", line: "Pip whispered the answer from the very start." },
+    { name: "Sludge", emoji: "🐕", line: "Sludge ate it. Case closed!" }
+  ];
   const COMBO_LINES = [
-    "Sharp slicing!",
-    "I, Nate the Great, am amazed!",
-    "Case closed!",
-    "Super detective work!",
-    "The trail is hot!"
+    "Sharp slicing!", "I, Nate the Great, am amazed!", "Case closed!",
+    "Super detective work!", "The trail is hot!"
   ];
   const MISS_LINES = [
-    "Sludge ate it!",
-    "This case is tricky.",
-    "Keep looking, detective.",
-    "The trail went cold."
+    "The trail went cold.", "This case is tricky.", "Keep looking, detective.", "Sludge is still hungry."
   ];
 
   const els = {
     totalStars: document.getElementById("totalStars"),
     metCount: document.getElementById("metCount"),
     knowCount: document.getElementById("knowCount"),
-    bestCount: document.getElementById("bestCount"),
+    caseCount: document.getElementById("caseCount"),
     modeChips: document.querySelectorAll("[data-mode]"),
     pathSteps: document.querySelectorAll("[data-step]"),
     startView: document.getElementById("startView"),
@@ -38,28 +76,36 @@
     startTitle: document.getElementById("startTitle"),
     startCopy: document.getElementById("startCopy"),
     startButton: document.getElementById("startButton"),
+    deskSludge: document.getElementById("deskSludge"),
+    startSludgeMeta: document.getElementById("startSludgeMeta"),
     playView: document.getElementById("playView"),
     hearts: document.getElementById("hearts"),
-    scoreCount: document.getElementById("scoreCount"),
+    evidence: document.getElementById("evidence"),
     sliceBanner: document.getElementById("sliceBanner"),
     hearButton: document.getElementById("hearButton"),
     comboLabel: document.getElementById("comboLabel"),
     arena: document.getElementById("arena"),
-    sludge: document.getElementById("sludge"),
+    sludgePal: document.getElementById("sludgePal"),
     slashCanvas: document.getElementById("slashCanvas"),
     feedback: document.getElementById("feedback"),
     nateToast: document.getElementById("nateToast"),
     finishView: document.getElementById("finishView"),
+    finishKicker: document.getElementById("finishKicker"),
     finishTitle: document.getElementById("finishTitle"),
     finishCopy: document.getElementById("finishCopy"),
     finishStack: document.getElementById("finishStack"),
-    finishPancakes: document.getElementById("finishPancakes"),
-    finishBest: document.getElementById("finishBest"),
+    finishWords: document.getElementById("finishWords"),
+    finishFed: document.getElementById("finishFed"),
     finishEarned: document.getElementById("finishEarned"),
-    playAgainButton: document.getElementById("playAgainButton"),
-    toShelf: document.getElementById("toShelf"),
+    nextCaseButton: document.getElementById("nextCaseButton"),
+    toCloset: document.getElementById("toCloset"),
+    sludgeView: document.getElementById("sludgeView"),
+    sludgeBig: document.getElementById("sludgeBig"),
+    sludgeStats: document.getElementById("sludgeStats"),
+    wardrobe: document.getElementById("wardrobe"),
     shelfView: document.getElementById("shelfView"),
     shelfTitle: document.getElementById("shelfTitle"),
+    caseBoard: document.getElementById("caseBoard"),
     nateShelf: document.getElementById("nateShelf"),
     bookDetail: document.getElementById("bookDetail"),
     confetti: document.getElementById("confetti")
@@ -104,10 +150,38 @@
     if (!next.words || typeof next.words !== "object") next.words = {};
     if (next.mode !== "mean") next.mode = "hear";
     next.best = Math.max(0, Number(next.best || 0));
-    next.version = 3;
+    if (!next.sludge || typeof next.sludge !== "object") next.sludge = {};
+    next.sludge.fed = Math.max(0, Number(next.sludge.fed || 0));
+    next.sludge.golds = Math.max(0, Number(next.sludge.golds || 0));
+    if (!Array.isArray(next.sludge.unlocked)) next.sludge.unlocked = [];
+    if (!next.sludge.worn) next.sludge.worn = null;
+    if (!next.cases || typeof next.cases !== "object") next.cases = {};
+    next.cases.solved = Math.max(0, Number(next.cases.solved || 0));
+    if (!Array.isArray(next.cases.recent)) next.cases.recent = [];
+    if (next.activeCase && typeof next.activeCase === "object" && !next.activeCase.title) next.activeCase = null;
+    next.version = 4;
     delete next.today;
     delete next.streak;
     return next;
+  }
+
+  function sludgeLevel() {
+    let level = 1;
+    SLUDGE_LEVELS.forEach((entry, index) => { if (saved.sludge.fed >= entry.fed) level = index + 1; });
+    return level;
+  }
+
+  function sludgeInfo() {
+    const level = sludgeLevel();
+    const current = SLUDGE_LEVELS[level - 1];
+    const next = SLUDGE_LEVELS[level] || null;
+    return {
+      level,
+      name: current.name,
+      scale: current.scale,
+      toNext: next ? Math.max(0, next.fed - saved.sludge.fed) : 0,
+      nextFed: next ? next.fed : null
+    };
   }
 
   function wordState(key) {
@@ -129,8 +203,8 @@
     els.totalStars.textContent = STARS.totalStars();
     els.metCount.textContent = allWords.filter((item) => statusOf(item.key) !== "new").length;
     els.knowCount.textContent = allWords.filter((item) => statusOf(item.key) === "know").length;
-    els.bestCount.textContent = saved.best;
-    renderModeChips();
+    els.caseCount.textContent = saved.cases.solved;
+    els.modeChips.forEach((chip) => chip.classList.toggle("is-on", chip.dataset.mode === saved.mode));
   }
 
   function shuffle(list) {
@@ -173,10 +247,104 @@
     return pool[pool.length - 1];
   }
 
+  // ---- Sludge ----
+  function sludgeHTML(scaleClass) {
+    const worn = SLUDGE_ITEMS.find((item) => item.id === saved.sludge.worn);
+    const jersey = worn && worn.slot === "body";
+    return `<span class="pal-jersey${jersey ? " is-on" : ""}" aria-hidden="true"><b>7</b></span>`
+      + `<span class="pal-body" aria-hidden="true">🐕</span>`
+      + (worn && worn.slot !== "body" ? `<span class="pal-item" aria-hidden="true">${worn.emoji}</span>` : "");
+  }
+
+  function renderDeskSludge() {
+    if (!els.deskSludge) return;
+    const info = sludgeInfo();
+    els.deskSludge.className = `sludge-pal lv${info.level}`;
+    els.deskSludge.innerHTML = sludgeHTML();
+    els.startSludgeMeta.innerHTML = `<strong>Sludge · ${info.name}</strong><small>${saved.sludge.fed} pancakes fed${info.toNext ? ` · ${info.toNext} to next size` : " · full legend"}</small>`;
+  }
+
+  function renderSludgeView() {
+    showView("sludge");
+    const info = sludgeInfo();
+    els.sludgeBig.className = `sludge-pal big lv${info.level}`;
+    els.sludgeBig.innerHTML = sludgeHTML();
+    els.sludgeStats.innerHTML = `
+      <div class="summary-strip">
+        <div class="summary-item"><small>Level</small><strong>${info.level} · ${info.name}</strong></div>
+        <div class="summary-item"><small>Pancakes fed</small><strong>${saved.sludge.fed}</strong></div>
+        <div class="summary-item"><small>Cases closed</small><strong>${saved.cases.solved}</strong></div>
+        <div class="summary-item"><small>Golden pancakes</small><strong>${saved.sludge.golds}</strong></div>
+      </div>
+      <p class="prompt">${info.toNext ? `Feed Sludge ${info.toNext} more pancakes to reach <strong>${SLUDGE_LEVELS[info.level].name}</strong>.` : "Sludge is a Neighborhood Legend. Nate is so proud."}</p>`;
+    els.wardrobe.innerHTML = SLUDGE_ITEMS.map((item) => {
+      const unlocked = saved.sludge.unlocked.includes(item.id);
+      const worn = saved.sludge.worn === item.id;
+      return `<button class="wardrobe-item${unlocked ? "" : " is-locked"}${worn ? " is-worn" : ""}" type="button" data-item="${item.id}" ${unlocked ? "" : "disabled"}>
+        <span class="wear-emoji">${unlocked ? item.emoji : "🔒"}</span>
+        <strong>${item.team ? "Hailong jersey" : item.name}</strong>
+        <small>${unlocked ? (worn ? "Wearing now — tap to take off" : "Tap to wear") : item.how}</small>
+      </button>`;
+    }).join("");
+    els.wardrobe.querySelectorAll("[data-item]").forEach((button) => button.addEventListener("click", () => {
+      const id = button.dataset.item;
+      saved.sludge.worn = saved.sludge.worn === id ? null : id;
+      save();
+      renderSludgeView();
+    }));
+  }
+
+  function checkUnlocks() {
+    SLUDGE_ITEMS.forEach((item) => {
+      if (saved.sludge.unlocked.includes(item.id)) return;
+      let unlocked = false;
+      try { unlocked = !!item.done(saved); } catch (_) {}
+      if (unlocked) {
+        saved.sludge.unlocked.push(item.id);
+        nateToast(`${item.emoji} New for Sludge: ${item.team ? "the Hailong jersey!" : item.name + "!"}`);
+      }
+    });
+  }
+
+  // ---- 案件 ----
+  function activeCase() { return saved.activeCase || null; }
+
+  function newCase() {
+    const title = CASE_TITLES[Math.floor(Math.random() * CASE_TITLES.length)];
+    const culprit = CULPRITS[Math.floor(Math.random() * CULPRITS.length)];
+    saved.activeCase = { title, culprit, goal: CASE_GOAL, evidence: 0 };
+    save();
+  }
+
+  function renderDesk() {
+    showView("start");
+    round = null;
+    updateHeader();
+    renderDeskSludge();
+    if (!allWords.length) {
+      els.startTitle.textContent = "The kitchen is quiet";
+      els.startCopy.textContent = "No book words are loaded yet.";
+      els.startButton.hidden = true;
+      return;
+    }
+    const active = activeCase();
+    els.startKicker.textContent = "Detective desk";
+    if (active) {
+      els.startTitle.textContent = active.title;
+      els.startCopy.textContent = `Evidence: ${active.evidence} of ${active.goal}. ${active.evidence ? "The trail is still warm — finish the case!" : "Slice the right pancakes to collect evidence."}`;
+      els.startButton.textContent = "Back on the case 🔪";
+    } else {
+      els.startTitle.textContent = "A new case is waiting";
+      els.startCopy.textContent = `${allWords.length} words in the pool. ${CASE_GOAL} pieces of evidence close a case. Can you find out who did it?`;
+      els.startButton.textContent = "Take the case 🕵️";
+    }
+    els.startButton.hidden = false;
+  }
+
   function showView(name) {
-    [els.startView, els.playView, els.finishView, els.shelfView].forEach((view) => { view.hidden = true; });
+    [els.startView, els.playView, els.finishView, els.sludgeView, els.shelfView].forEach((view) => { view.hidden = true; });
     els[`${name}View`].hidden = false;
-    const step = name === "shelf" ? "shelf" : "today";
+    const step = name === "shelf" ? "shelf" : name === "sludge" ? "sludge" : "today";
     els.pathSteps.forEach((button) => button.classList.toggle("is-active", button.dataset.step === step));
     if (name !== "play") stopPlay();
   }
@@ -186,32 +354,14 @@
     els.hearts.innerHTML = Array.from({ length: HEARTS }, (_, i) => `<i class="${i < left ? "" : "is-lost"}"></i>`).join("");
   }
 
-  function renderModeChips() {
-    els.modeChips.forEach((chip) => chip.classList.toggle("is-on", chip.dataset.mode === saved.mode));
-  }
-
-  function renderStart() {
-    showView("start");
-    round = null;
-    updateHeader();
-    if (!allWords.length) {
-      els.startTitle.textContent = "The kitchen is quiet";
-      els.startCopy.textContent = "No book words are loaded yet.";
-      els.startButton.hidden = true;
-      return;
-    }
-    const know = allWords.filter((item) => statusOf(item.key) === "know").length;
-    els.startKicker.textContent = "Free play";
-    els.startTitle.textContent = "Pancakes are ready";
-    els.startCopy.textContent = saved.best
-      ? `${allWords.length} words in the pool. Best round: ${saved.best} pancakes. Can you beat it?`
-      : `${allWords.length} words in the pool. Slice the right pancake before it drops. Three misses and the round is over.`;
-    els.startButton.textContent = "Start slicing 🔪";
-    els.startButton.hidden = false;
+  function renderEvidence() {
+    const active = activeCase();
+    els.evidence.innerHTML = `🔍 <strong>${active ? active.evidence : 0}</strong>/${active ? active.goal : CASE_GOAL}`;
   }
 
   function startRound() {
-    round = { score: 0, hearts: HEARTS, combo: 0, maxCombo: 0, golds: 0, roundStars: 0 };
+    if (!activeCase()) newCase();
+    round = { score: 0, hearts: HEARTS, combo: 0, maxCombo: 0, golds: 0, roundStars: 0, fedThisCase: 0 };
     openArena();
   }
 
@@ -221,7 +371,9 @@
       if (!round) return;
       resizeCanvas();
       renderHearts();
-      els.scoreCount.textContent = round.score;
+      renderEvidence();
+      els.sludgePal.className = `sludge-pal arena lv${sludgeLevel()}`;
+      els.sludgePal.innerHTML = sludgeHTML();
       paintCombo();
       if (!wave) beginWord();
       startLoop();
@@ -261,6 +413,7 @@
     wave.phase = "fly";
     wave.resolved = false;
     clearFlyers();
+    const active = activeCase();
     if (saved.mode === "hear") {
       els.sliceBanner.innerHTML = `🔊 Slice the word you hear`;
       speakWord(item.word);
@@ -394,14 +547,14 @@
     els.nateToast.textContent = text;
     els.nateToast.classList.add("is-show");
     window.clearTimeout(toastTimer);
-    toastTimer = window.setTimeout(() => els.nateToast.classList.remove("is-show"), 1500);
+    toastTimer = window.setTimeout(() => els.nateToast.classList.remove("is-show"), 1600);
   }
 
-  function sludgeMunch() {
-    if (!els.sludge) return;
-    els.sludge.classList.remove("is-munch");
-    void els.sludge.offsetWidth;
-    els.sludge.classList.add("is-munch");
+  function sludgeAnim(className) {
+    if (!els.sludgePal) return;
+    els.sludgePal.classList.remove("is-munch", "is-sad", "is-trick");
+    void els.sludgePal.offsetWidth;
+    els.sludgePal.classList.add(className);
   }
 
   function loseHeart() {
@@ -410,7 +563,7 @@
     renderHearts();
     paintCombo();
     if (round.hearts <= 0) {
-      window.setTimeout(() => finishRound(), 500);
+      window.setTimeout(() => finishRound(false), 500);
       return true;
     }
     return false;
@@ -427,7 +580,7 @@
     state.lastAt = new Date().toISOString();
     els.feedback.textContent = `${item.word} · ${item.zh}`;
     save();
-    sludgeMunch();
+    sludgeAnim("is-sad");
     nateToast(MISS_LINES[Math.floor(Math.random() * MISS_LINES.length)]);
     const dead = loseHeart();
     if (!dead) window.setTimeout(() => { if (round) beginWord(); }, 750);
@@ -450,9 +603,11 @@
       burst(flyer, "#ffd76a");
       round.golds += 1;
       round.roundStars += 2;
+      saved.sludge.golds += 1;
+      feedSludge(3);
       STARS.addStars(2);
       els.totalStars.textContent = STARS.totalStars();
-      nateToast("Golden pancake! +2★");
+      nateToast("Golden pancake! Sludge gets 3 🥞");
       return;
     }
     if (wave.phase === "meet") {
@@ -485,6 +640,18 @@
     }
   }
 
+  function feedSludge(count) {
+    const before = sludgeLevel();
+    saved.sludge.fed += count;
+    if (round) round.fedThisCase += count;
+    const after = sludgeLevel();
+    if (after > before) {
+      nateToast(`🐕 Sludge grew! Now a ${sludgeInfo().name}!`);
+      celebrate();
+    }
+    checkUnlocks();
+  }
+
   function scoreSlice() {
     const item = wave.item;
     const state = wordState(item.key);
@@ -497,9 +664,24 @@
       round.score += 1;
       round.combo = Number(round.combo || 0) + 1;
       round.maxCombo = Math.max(round.maxCombo, round.combo);
-      els.scoreCount.textContent = round.score;
+      feedSludge(1);
+      sludgeAnim("is-munch");
       els.feedback.textContent = `${item.word} · ${item.zh}`;
-      if (round.combo >= 3 && round.combo % 2 === 1) nateToast(COMBO_LINES[Math.floor(Math.random() * COMBO_LINES.length)]);
+      const active = activeCase();
+      if (active && active.evidence < active.goal) {
+        active.evidence += 1;
+        renderEvidence();
+        if (active.evidence >= active.goal) {
+          save();
+          window.setTimeout(() => finishRound(true), 550);
+          if (saved.mode === "mean") speakWord(item.word);
+          return;
+        }
+      }
+      if (round.combo >= 5 && round.combo % 5 === 0) {
+        sludgeAnim("is-trick");
+        nateToast(COMBO_LINES[Math.floor(Math.random() * COMBO_LINES.length)]);
+      }
     } else {
       state.wrong = Number(state.wrong || 0) + 1;
       state.level = Math.max(1, Number(state.level || 0) - 1);
@@ -531,27 +713,38 @@
     }
   }
 
-  function finishRound() {
+  function finishRound(solved) {
     if (!round) return;
     stopPlay();
-    const score = round.score;
-    const isBest = score > saved.best;
-    if (isBest) saved.best = score;
-    saved.rounds = Number(saved.rounds || 0) + 1;
-    const earned = Math.min(8, 1 + Math.floor(score / 4)) + round.roundStars;
-    if (earned) STARS.addStars(Math.min(8, 1 + Math.floor(score / 4)) + round.roundStars);
+    const earned = solved ? 4 : 0;
+    if (solved && activeCase()) {
+      const active = saved.activeCase;
+      saved.cases.solved += 1;
+      saved.cases.recent.unshift({ title: active.title, culprit: active.culprit.name, emoji: active.culprit.emoji, words: round.score, date: new Date().toISOString().slice(0, 10) });
+      saved.cases.recent = saved.cases.recent.slice(0, 30);
+      saved.activeCase = null;
+      checkUnlocks();
+    }
+    if (earned) STARS.addStars(earned);
     save();
     showView("finish");
-    els.finishTitle.textContent = isBest ? "A new best round!" : score >= 15 ? "What a stack!" : score >= 8 ? "Nice slicing!" : "The plate needs a rest";
-    els.finishPancakes.textContent = score;
-    els.finishBest.textContent = saved.best;
-    els.finishEarned.textContent = `+${earned}★`;
-    els.finishCopy.textContent = isBest
-      ? `I, Nate the Great, say: that was great slicing! ${score} pancakes in one round.`
-      : `Best round so far: ${saved.best}. The words that got away will fly again soon.`;
-    els.finishStack.innerHTML = Array.from({ length: Math.max(score, 1) }, (_, i) => `<i style="--tilt:${(i % 3) - 1}deg"></i>`).join("") + '<b class="butter" aria-hidden="true"></b>';
+    if (solved) {
+      const closed = saved.cases.recent[0];
+      els.finishKicker.textContent = "CASE CLOSED";
+      els.finishTitle.textContent = `It was ${closed.culprit}!`;
+      els.finishCopy.textContent = `${closed.emoji} ${CULPRITS.find((c) => c.name === closed.culprit).line}`;
+    } else {
+      els.finishKicker.textContent = "The trail went cold";
+      els.finishTitle.textContent = "Three got away";
+      els.finishCopy.textContent = `Evidence is safe (${activeCase() ? activeCase().evidence : 0}/${activeCase() ? activeCase().goal : CASE_GOAL}). Sludge kept the pancakes warm. Come back any time.`;
+    }
+    els.finishWords.textContent = round.score;
+    els.finishFed.textContent = `+${round.fedThisCase}`;
+    els.finishEarned.textContent = `+${earned + round.roundStars}★`;
+    els.finishStack.innerHTML = Array.from({ length: Math.max(round.score, 1) }, (_, i) => `<i style="--tilt:${(i % 3) - 1}deg"></i>`).join("") + '<b class="butter" aria-hidden="true"></b>';
+    els.nextCaseButton.textContent = solved ? "Take a new case 🕵️" : "Back on the case 🔪";
     round = null;
-    if (score >= 8 || isBest) celebrate();
+    if (solved) celebrate();
   }
 
   function resizeCanvas() {
@@ -642,6 +835,14 @@
 
   function renderShelf() {
     showView("shelf");
+    els.caseBoard.innerHTML = saved.cases.recent.length
+      ? saved.cases.recent.map((entry) => `
+        <div class="case-card">
+          <span class="case-emoji" aria-hidden="true">${entry.emoji}</span>
+          <strong>${escapeHtml(entry.title.replace("The Case of the ", ""))}</strong>
+          <small>It was ${escapeHtml(entry.culprit)} · ${entry.words} words · ${entry.date}</small>
+        </div>`).join("")
+      : '<p class="empty-cycle-copy">Close your first case and it gets pinned here.</p>';
     const readyBooks = books.filter((book) => book.words.length).length;
     els.shelfTitle.textContent = `${readyBooks} books with words`;
     els.nateShelf.innerHTML = "";
@@ -727,17 +928,21 @@
   els.hearButton.addEventListener("click", () => { if (wave && wave.item) speakWord(wave.item.word); });
   window.addEventListener("resize", () => { if (round) resizeCanvas(); });
   els.pathSteps.forEach((button) => button.addEventListener("click", () => {
-    if (button.dataset.step === "shelf") renderShelf();
+    const step = button.dataset.step;
+    if (step === "shelf") renderShelf();
+    else if (step === "sludge") renderSludgeView();
     else if (round) openArena();
-    else renderStart();
+    else renderDesk();
   }));
   els.modeChips.forEach((chip) => chip.addEventListener("click", () => {
     saved.mode = chip.dataset.mode === "mean" ? "mean" : "hear";
     save();
+    els.modeChips.forEach((c) => c.classList.toggle("is-on", c.dataset.mode === saved.mode));
   }));
   els.startButton.addEventListener("click", startRound);
-  els.playAgainButton.addEventListener("click", startRound);
-  els.toShelf.addEventListener("click", renderShelf);
+  els.nextCaseButton.addEventListener("click", startRound);
+  els.toCloset.addEventListener("click", renderSludgeView);
 
-  renderStart();
+  checkUnlocks();
+  renderDesk();
 })();

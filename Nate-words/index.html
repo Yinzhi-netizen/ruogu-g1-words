@@ -11,7 +11,7 @@
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="apple-touch-icon" href="./icons/icon-180.png" />
   <link rel="stylesheet" href="../wordlab.css?v=6" />
-  <link rel="stylesheet" href="./nate.css?v=3" />
+  <link rel="stylesheet" href="./nate.css?v=4" />
 </head>
 <body class="book-page nate-page">
   <div class="site-shell">
@@ -25,14 +25,14 @@
 
     <section class="page-head">
       <div>
-        <p class="eyebrow">Nate the Great · the whole box</p>
+        <p class="eyebrow">Nate the Great · detective agency</p>
         <h1>Pancake Words</h1>
-        <p>Pancakes fly up with words on them. Slice the right one before it drops. Three misses and the round is over.</p>
+        <p>Take a case. Slice the right pancakes to collect evidence — then find out who did it. Every pancake you slice feeds Sludge.</p>
       </div>
       <div class="summary-strip">
         <div class="summary-item"><small>Met</small><strong id="metCount">0</strong></div>
         <div class="summary-item"><small>Know it</small><strong id="knowCount">0</strong></div>
-        <div class="summary-item"><small>Best round</small><strong id="bestCount">0</strong></div>
+        <div class="summary-item"><small>Cases closed</small><strong id="caseCount">0</strong></div>
       </div>
     </section>
 
@@ -44,32 +44,37 @@
           <button class="mode-chip" type="button" data-mode="mean"><span>💬</span><strong>Mean it</strong><small>Read the meaning</small></button>
         </div>
         <div class="path-list" id="pathList">
-          <button class="path-step is-active" data-step="today" type="button"><span class="step-num">🥞</span><strong>Slice words</strong><small>Any time, any length</small></button>
-          <button class="path-step" data-step="shelf" type="button"><span class="step-num">📚</span><strong>My Nate shelf</strong><small>Book by book</small></button>
+          <button class="path-step is-active" data-step="today" type="button"><span class="step-num">🕵️</span><strong>Take a case</strong><small>Any time, any length</small></button>
+          <button class="path-step" data-step="sludge" type="button"><span class="step-num">🐕</span><strong>Sludge's closet</strong><small>Feed & dress up</small></button>
+          <button class="path-step" data-step="shelf" type="button"><span class="step-num">📚</span><strong>Cases & shelf</strong><small>Case board, book by book</small></button>
         </div>
-        <div class="mini-note"><span>🔪</span><span>Swipe across the pancake that matches. Words you miss will fly again soon; words you know fly by less often.</span></div>
+        <div class="mini-note"><span>🔍</span><span>8 pieces of evidence close a case. Missed words fly again soon; known ones fly by less often. No daily tasks — play as long as it's fun.</span></div>
       </aside>
 
       <section>
         <article class="mission-card enter" id="startView">
-          <p class="mission-kicker" id="startKicker">Free play</p>
-          <h2 id="startTitle">Pancakes are ready</h2>
+          <p class="mission-kicker" id="startKicker">Detective desk</p>
+          <h2 id="startTitle">A new case is waiting</h2>
           <p class="prompt" id="startCopy"></p>
+          <div class="desk-row">
+            <div class="sludge-pal desk" id="deskSludge" aria-hidden="true"></div>
+            <p class="sludge-meta" id="startSludgeMeta"></p>
+          </div>
           <div class="mission-actions">
-            <button class="primary-button" id="startButton" type="button">Start slicing 🔪</button>
+            <button class="primary-button" id="startButton" type="button">Take the case 🕵️</button>
           </div>
         </article>
 
         <article class="slice-stage" id="playView" hidden>
           <div class="slice-hud">
             <div class="slice-hearts" id="hearts" aria-label="Misses left"></div>
-            <div class="slice-score" aria-label="Pancakes sliced">🥞 <strong id="scoreCount">0</strong></div>
+            <div class="slice-score" aria-label="Evidence collected">🔍 <strong id="evidence">0/8</strong></div>
             <p class="slice-banner" id="sliceBanner"></p>
             <button class="hear-button" id="hearButton" type="button" aria-label="Hear the word">🔊</button>
           </div>
           <strong class="slice-combo" id="comboLabel" hidden></strong>
           <div class="slice-sky" id="arena">
-            <div class="sludge" id="sludge" aria-hidden="true">🐕</div>
+            <div class="sludge-pal arena" id="sludgePal" aria-hidden="true"></div>
           </div>
           <canvas id="slashCanvas"></canvas>
           <p class="slice-feedback" id="feedback" aria-live="polite"></p>
@@ -77,39 +82,51 @@
         </article>
 
         <article class="mission-card" id="finishView" hidden>
-          <p class="mission-kicker">Round over</p>
-          <h2 id="finishTitle">What a stack!</h2>
+          <p class="mission-kicker" id="finishKicker">CASE CLOSED</p>
+          <h2 id="finishTitle">It was Sludge!</h2>
           <p class="prompt" id="finishCopy"></p>
           <div class="finish-stack" id="finishStack"></div>
           <div class="summary-strip">
-            <div class="summary-item"><small>Pancakes</small><strong id="finishPancakes">0</strong></div>
-            <div class="summary-item"><small>Best round</small><strong id="finishBest">0</strong></div>
+            <div class="summary-item"><small>Words sliced</small><strong id="finishWords">0</strong></div>
+            <div class="summary-item"><small>Pancakes to Sludge</small><strong id="finishFed">+0</strong></div>
             <div class="summary-item"><small>Earned</small><strong id="finishEarned">+0★</strong></div>
           </div>
           <div class="mission-actions">
-            <button class="primary-button" id="playAgainButton" type="button">Play again 🔪</button>
-            <button class="secondary-button" id="toShelf" type="button">See my Nate shelf</button>
+            <button class="primary-button" id="nextCaseButton" type="button">Take a new case 🕵️</button>
+            <button class="secondary-button" id="toCloset" type="button">Visit Sludge's closet 🐕</button>
           </div>
         </article>
 
+        <article class="mission-card sludge-card" id="sludgeView" hidden>
+          <p class="mission-kicker">Sludge's closet</p>
+          <h2>My partner, Sludge</h2>
+          <div class="sludge-stage">
+            <div class="sludge-pal big" id="sludgeBig" aria-hidden="true"></div>
+          </div>
+          <div id="sludgeStats"></div>
+          <p class="eyebrow wardrobe-head">Wardrobe — unlock by playing</p>
+          <div class="wardrobe" id="wardrobe"></div>
+        </article>
+
         <article class="mission-card shelf-card" id="shelfView" hidden>
-          <p class="mission-kicker">My Nate shelf</p>
-          <h2 id="shelfTitle">Nate the Great</h2>
-          <p class="prompt">Each book fills up as you get to know its words. Tap a book to see its words.</p>
+          <p class="mission-kicker">Case board</p>
+          <h2 id="shelfTitle">Closed cases</h2>
+          <div class="case-board" id="caseBoard"></div>
+          <p class="eyebrow shelf-head">My Nate shelf</p>
           <div class="nate-shelf" id="nateShelf"></div>
           <div class="book-detail" id="bookDetail" hidden></div>
         </article>
       </section>
     </main>
 
-    <footer class="site-footer">Slice the pancake that matches. Only words that really show up in the books are in the air. No daily tasks — play as long as it's fun.</footer>
+    <footer class="site-footer">Only words that really show up in the books are in the air. Every clean slice feeds Sludge.</footer>
   </div>
 
   <div class="confetti" id="confetti" hidden></div>
   <script src="../Book-words/book-word-data.js?v=1"></script>
   <script src="./nate-word-data.js?v=3"></script>
   <script src="./nate-stars.js?v=1"></script>
-  <script src="./nate-app.js?v=3"></script>
+  <script src="./nate-app.js?v=4"></script>
   <script>
     if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./sw.js").catch(() => {});
   </script>

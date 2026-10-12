@@ -1,14 +1,14 @@
 const cachePrefix = "ruogu-word-lab-nate-";
-const cacheName = `${cachePrefix}v2`;
+const cacheName = `${cachePrefix}v3`;
 const assets = [
   "./",
   "./index.html",
   "../wordlab.css?v=6",
-  "./nate.css?v=3",
+  "./nate.css?v=4",
   "../Book-words/book-word-data.js?v=1",
   "./nate-word-data.js?v=3",
   "./nate-stars.js?v=1",
-  "./nate-app.js?v=3",
+  "./nate-app.js?v=4",
   "./manifest.webmanifest",
   "./icons/icon-180.png",
   "./icons/icon-192.png",
