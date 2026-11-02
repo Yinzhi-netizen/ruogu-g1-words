@@ -1,5 +1,5 @@
 // 若谷英文 G2 · 例句与短文
-// 用词严格对应学校 Cycle 3 与 Cycle 4 原件
+// 用词严格对应学校 Cycle 3 至 Cycle 8 原件
 
 window.RUOGU_G2_STORIES = [
   {
@@ -27,6 +27,32 @@ window.RUOGU_G2_STORIES = [
       "We laugh again, but no one is mean, and we save our money for the next game."
     ],
     wordsUsed: ["hockey", "team", "tree", "each", "eat", "tea", "see", "flea", "above", "turkey", "feet", "again", "mean", "money"]
+  },
+  {
+    id: "story-cycle5-night-pie",
+    title: "A Night Pie",
+    subtitle: "夜晚的派 · Cycle 5",
+    level: "G2 Cycle 5",
+    paragraphs: [
+      "It is night, and the kitchen light is bright.",
+      "Dad is cooking a pie, and it smells so good.",
+      "Crash! Lightning flashes, and the poor cat hides under the wood table.",
+      "Mia took a book from the floor, and they always read until the pie is almost done."
+    ],
+    wordsUsed: ["night", "light", "bright", "cooking", "pie", "good", "lightning", "poor", "wood", "took", "book", "floor", "always", "almost"]
+  },
+  {
+    id: "story-cycle6-blue-boot",
+    title: "A Blue Boot",
+    subtitle: "一只蓝靴子 · Cycle 6",
+    level: "G2 Cycle 6",
+    paragraphs: [
+      "A son finds one blue boot in his room.",
+      "It is a clue! There is glue on the floor and a scoop of food by the door.",
+      "Soon he sees his new puppy chew the boot — the puppy has a new tooth!",
+      "He gives the puppy some fruit, and the little dog won his heart this month."
+    ],
+    wordsUsed: ["son", "blue", "boot", "room", "clue", "glue", "scoop", "food", "soon", "new", "chew", "tooth", "fruit", "won", "month"]
   }
 ];
 
@@ -68,5 +94,43 @@ window.RUOGU_G2_SENTENCES = {
   "above": "The plane flies above the clouds.",
   "among": "The red flower grows among the yellow ones.",
   "again": "Please read the story again.",
-  "against": "The bicycle rests against the wall."
+  "against": "The bicycle rests against the wall.",
+  "pie": "Grandma bakes an apple pie.",
+  "light": "Please turn on the light.",
+  "flight": "The flight to Beijing takes three hours.",
+  "night": "We look at the stars at night.",
+  "bright": "The sun is very bright today.",
+  "right": "Turn right at the corner.",
+  "tie": "Dad wears a tie to work.",
+  "push": "Push the door to open it.",
+  "pull": "Pull the box out of the car.",
+  "look": "Look at the rainbow!",
+  "good": "You did a good job.",
+  "book": "This book is about dinosaurs.",
+  "took": "She took a photo of the cat.",
+  "wood": "The table is made of wood.",
+  "lightning": "The lightning lit up the sky.",
+  "cooking": "Dad is cooking dinner.",
+  "always": "We always brush our teeth.",
+  "almost": "The movie is almost over.",
+  "floor": "The cat sleeps on the floor.",
+  "poor": "The poor dog is lost in the rain.",
+  "glue": "Use the glue to fix the card.",
+  "scoop": "I want a scoop of ice cream.",
+  "boot": "My boot is wet from the rain.",
+  "tooth": "The baby has a new tooth.",
+  "food": "The food smells great.",
+  "room": "My room is clean and tidy.",
+  "soon": "Dinner will be ready soon.",
+  "new": "I have a new red bag.",
+  "fruit": "We eat fruit every day.",
+  "blue": "The sky is blue.",
+  "chew": "Chew your food slowly.",
+  "clue": "The detective found a clue.",
+  "won": "Our team won the game.",
+  "son": "Their son is seven years old.",
+  "month": "My birthday is next month.",
+  "door": "Close the door, please.",
+  "hour": "We read for one hour.",
+  "minute": "Wait one minute, please."
 };

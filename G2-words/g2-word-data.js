@@ -19,10 +19,45 @@ window.RUOGU_G2_CYCLES = [
     title: "Spelling + Heart Words",
     schoolYear: "2026-2027",
     testDate: null,
-    status: "current",
+    status: "review",
     groupIds: [
       "cycle4-2026-spelling-words",
       "cycle4-2026-heart-words"
+    ]
+  },
+  {
+    id: "cycle5-2026-official",
+    label: "Cycle 5",
+    title: "Spelling + Heart Words",
+    schoolYear: "2026-2027",
+    testDate: null,
+    status: "review",
+    groupIds: [
+      "cycle5-2026-spelling-words",
+      "cycle5-2026-heart-words"
+    ]
+  },
+  {
+    id: "cycle6-2026-official",
+    label: "Cycle 6",
+    title: "Spelling + Heart Words",
+    schoolYear: "2026-2027",
+    testDate: "2026-10-20",
+    status: "review",
+    groupIds: [
+      "cycle6-2026-spelling-words",
+      "cycle6-2026-heart-words"
+    ]
+  },
+  {
+    id: "cycle8-2026-official",
+    label: "Cycle 8",
+    title: "Heart Words Review",
+    schoolYear: "2026-2027",
+    testDate: null,
+    status: "current",
+    groupIds: [
+      "cycle8-2026-heart-words"
     ]
   }
 ];
@@ -76,6 +111,69 @@ window.RUOGU_G2_WORD_GROUPS = [
     date: "2026-09-17/24",
     subject: "Heart Words",
     words: ["above", "among", "again", "against"],
+  },
+  {
+    id: "cycle5-2026-spelling-words",
+    title: "Cycle 5 · Spelling Words",
+    track: "core",
+    source: "../G2词表原件/Spelling Cycle 5.jpg",
+    cycle: "cycle5-2026-official",
+    date: "2026-09/10",
+    subject: "Spelling Words",
+    words: [
+      "pie", "light", "flight", "night",
+      "bright", "right", "tie", "push",
+      "pull", "look", "good", "book",
+      "took", "wood", "lightning", "cooking"
+    ],
+  },
+  {
+    id: "cycle5-2026-heart-words",
+    title: "Cycle 5 · Heart Words",
+    track: "core",
+    source: "../G2词表原件/Spelling Cycle 5.jpg",
+    cycle: "cycle5-2026-official",
+    date: "2026-09/10",
+    subject: "Heart Words",
+    words: ["always", "almost", "floor", "poor"],
+  },
+  {
+    id: "cycle6-2026-spelling-words",
+    title: "Cycle 6 · Spelling Words",
+    track: "core",
+    source: "../G2词表原件/Cycle 6 Spelling Poster.png",
+    cycle: "cycle6-2026-official",
+    date: "2026-10-13/20",
+    subject: "Spelling Words",
+    words: [
+      "glue", "scoop", "boot", "tooth",
+      "food", "room", "soon", "new",
+      "fruit", "blue", "chew", "clue"
+    ],
+  },
+  {
+    id: "cycle6-2026-heart-words",
+    title: "Cycle 6 · Heart Words",
+    track: "core",
+    source: "../G2词表原件/Cycle 6 Spelling Poster.png",
+    cycle: "cycle6-2026-official",
+    date: "2026-10-13/20",
+    subject: "Heart Words",
+    words: ["won", "son", "month"],
+  },
+  {
+    id: "cycle8-2026-heart-words",
+    title: "Cycle 8 · Heart Words",
+    track: "core",
+    source: "../G2词表原件/Cycle 8 Newsletter.pdf",
+    cycle: "cycle8-2026-official",
+    date: "2026-11-02/05",
+    subject: "Heart Words",
+    words: [
+      "against", "almost", "always", "floor",
+      "door", "poor", "won", "son",
+      "month", "hour", "minute"
+    ],
   },
 ];
 
