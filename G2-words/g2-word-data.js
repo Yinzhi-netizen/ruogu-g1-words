@@ -50,6 +50,18 @@ window.RUOGU_G2_CYCLES = [
     ]
   },
   {
+    id: "cycle7-2026-official",
+    label: "Cycle 7",
+    title: "Spelling + Heart Words",
+    schoolYear: "2026-2027",
+    testDate: null,
+    status: "review",
+    groupIds: [
+      "cycle7-2026-spelling-words",
+      "cycle7-2026-heart-words"
+    ]
+  },
+  {
     id: "cycle8-2026-official",
     label: "Cycle 8",
     title: "Heart Words Review",
@@ -160,6 +172,31 @@ window.RUOGU_G2_WORD_GROUPS = [
     date: "2026-10-13/20",
     subject: "Heart Words",
     words: ["won", "son", "month"],
+  },
+  {
+    id: "cycle7-2026-spelling-words",
+    title: "Cycle 7 · Spelling Words",
+    track: "core",
+    source: "../G2词表原件/Cycle 7 Spelling Poster.png",
+    cycle: "cycle7-2026-official",
+    date: "2026-10",
+    subject: "Spelling Words",
+    words: [
+      "football", "rainbow", "sunlight",
+      "toothbrush", "textbook", "classroom",
+      "fault", "caught", "saw",
+      "straw", "because", "haunt"
+    ],
+  },
+  {
+    id: "cycle7-2026-heart-words",
+    title: "Cycle 7 · Heart Words",
+    track: "core",
+    source: "../G2词表原件/Cycle 7 Spelling Poster.png",
+    cycle: "cycle7-2026-official",
+    date: "2026-10",
+    subject: "Heart Words",
+    words: ["hour", "minute"],
   },
   {
     id: "cycle8-2026-heart-words",

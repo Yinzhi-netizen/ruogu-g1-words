@@ -132,5 +132,17 @@ window.RUOGU_G2_SENTENCES = {
   "month": "My birthday is next month.",
   "door": "Close the door, please.",
   "hour": "We read for one hour.",
-  "minute": "Wait one minute, please."
+  "minute": "Wait one minute, please.",
+  "football": "My football is in the garden.",
+  "rainbow": "A rainbow appears after the rain.",
+  "sunlight": "The sunlight is warm on my face.",
+  "toothbrush": "I use a toothbrush every morning.",
+  "textbook": "Open your textbook to page ten.",
+  "classroom": "Our classroom is bright and clean.",
+  "fault": "It is not your fault.",
+  "caught": "The cat caught a little mouse.",
+  "saw": "I saw a bird in the tree.",
+  "straw": "I drink juice with a straw.",
+  "because": "We stay inside because it is raining.",
+  "haunt": "A kind ghost would never haunt you."
 };
