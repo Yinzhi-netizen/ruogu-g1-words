@@ -67,9 +67,21 @@ window.RUOGU_G2_CYCLES = [
     title: "Heart Words Review",
     schoolYear: "2026-2027",
     testDate: null,
-    status: "current",
+    status: "review",
     groupIds: [
       "cycle8-2026-heart-words"
+    ]
+  },
+  {
+    id: "cycle9-2026-official",
+    label: "Cycle 9",
+    title: "Spelling + Heart Words",
+    schoolYear: "2026-2027",
+    testDate: null,
+    status: "current",
+    groupIds: [
+      "cycle9-2026-spelling-words",
+      "cycle9-2026-heart-words"
     ]
   }
 ];
@@ -211,6 +223,31 @@ window.RUOGU_G2_WORD_GROUPS = [
       "door", "poor", "won", "son",
       "month", "hour", "minute"
     ],
+  },
+  {
+    id: "cycle9-2026-spelling-words",
+    title: "Cycle 9 · Spelling Words",
+    track: "core",
+    source: "../G2词表原件/Cycle 9 Spelling.jpg",
+    cycle: "cycle9-2026-official",
+    date: "2026-11-06/16",
+    subject: "Spelling Words",
+    words: [
+      "head", "bread", "heavy", "watch",
+      "father", "wash", "dead", "read",
+      "soil", "noise", "point", "boy",
+      "soymilk", "toy", "destroy", "toilet"
+    ],
+  },
+  {
+    id: "cycle9-2026-heart-words",
+    title: "Cycle 9 · Heart Words",
+    track: "core",
+    source: "../G2词表原件/Cycle 9 Spelling.jpg",
+    cycle: "cycle9-2026-official",
+    date: "2026-11-06/16",
+    subject: "Heart Words",
+    words: ["Monday", "Wednesday", "February"],
   },
 ];
 

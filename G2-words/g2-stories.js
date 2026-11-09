@@ -1,5 +1,5 @@
 // 若谷英文 G2 · 例句与短文
-// 用词严格对应学校 Cycle 3 至 Cycle 8 原件
+// 用词严格对应学校 Cycle 3 至 Cycle 9 原件
 
 window.RUOGU_G2_STORIES = [
   {
@@ -144,5 +144,23 @@ window.RUOGU_G2_SENTENCES = {
   "saw": "I saw a bird in the tree.",
   "straw": "I drink juice with a straw.",
   "because": "We stay inside because it is raining.",
-  "haunt": "A kind ghost would never haunt you."
+  "haunt": "A kind ghost would never haunt you.",
+  "head": "Put the hat on your head.",
+  "bread": "I had bread and eggs for breakfast.",
+  "heavy": "This box is too heavy for me.",
+  "watch": "We watch birds from the window.",
+  "wash": "Wash your hands before lunch.",
+  "dead": "We found a dead leaf under the tree.",
+  "read": "Yesterday, I read a book about sharks.",
+  "soil": "The seeds are under the soil.",
+  "noise": "I heard a loud noise outside.",
+  "point": "Point to the star on the map.",
+  "boy": "The boy kicked the ball.",
+  "soymilk": "She poured some soymilk into her cup.",
+  "toy": "The puppy brought me its toy.",
+  "destroy": "A big storm can destroy a small shed.",
+  "toilet": "Remember to flush the toilet.",
+  "monday": "Our class goes to the library on Monday.",
+  "wednesday": "We have art on Wednesday.",
+  "february": "February is the shortest month of the year."
 };

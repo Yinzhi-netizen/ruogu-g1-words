@@ -509,7 +509,11 @@
   function speakWord(text) {
     if (!("speechSynthesis" in window)) return;
     window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
+    // The Cycle 9 short-e spelling pattern calls for the past-tense pronunciation.
+    const spokenText = text === "read" && currentCycle.id === "cycle9-2026-official"
+      ? sentences.read || "Yesterday, I read a book."
+      : text;
+    const utterance = new SpeechSynthesisUtterance(spokenText);
     utterance.lang = "en-US";
     utterance.rate = .76;
     window.speechSynthesis.speak(utterance);
