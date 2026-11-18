@@ -1,5 +1,5 @@
 // 若谷英文 G2 · 例句与短文
-// 用词严格对应学校 Cycle 3 至 Cycle 9 原件
+// 用词严格对应学校 Cycle 3 至 Cycle 10 原件
 
 window.RUOGU_G2_STORIES = [
   {
@@ -162,5 +162,22 @@ window.RUOGU_G2_SENTENCES = {
   "toilet": "Remember to flush the toilet.",
   "monday": "Our class goes to the library on Monday.",
   "wednesday": "We have art on Wednesday.",
-  "february": "February is the shortest month of the year."
+  "february": "February is the shortest month of the year.",
+  "out": "The cat ran out of the house.",
+  "south": "Birds fly south in winter.",
+  "sound": "I heard the sound of rain.",
+  "ground": "The ball rolled on the ground.",
+  "couch": "The cat sleeps on the couch.",
+  "outside": "It is cold outside today.",
+  "house": "Our house has a red door.",
+  "without": "He went out without a coat.",
+  "cloud": "Look at that big white cloud.",
+  "crown": "The king wears a golden crown.",
+  "down": "Sit down and open your book.",
+  "brown": "The dog has brown ears.",
+  "downtown": "We went downtown to buy books.",
+  "crowd": "A big crowd watched the football game.",
+  "town": "Our town has a big library.",
+  "eye": "Close one eye and look at the star.",
+  "heart": "My heart beats fast when I run."
 };

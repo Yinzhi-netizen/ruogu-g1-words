@@ -78,10 +78,22 @@ window.RUOGU_G2_CYCLES = [
     title: "Spelling + Heart Words",
     schoolYear: "2026-2027",
     testDate: null,
-    status: "current",
+    status: "review",
     groupIds: [
       "cycle9-2026-spelling-words",
       "cycle9-2026-heart-words"
+    ]
+  },
+  {
+    id: "cycle10-2026-official",
+    label: "Cycle 10",
+    title: "Spelling + Heart Words (ou / ow)",
+    schoolYear: "2026-2027",
+    testDate: null,
+    status: "current",
+    groupIds: [
+      "cycle10-2026-spelling-words",
+      "cycle10-2026-heart-words"
     ]
   }
 ];
@@ -248,6 +260,31 @@ window.RUOGU_G2_WORD_GROUPS = [
     date: "2026-11-06/16",
     subject: "Heart Words",
     words: ["Monday", "Wednesday", "February"],
+  },
+  {
+    id: "cycle10-2026-spelling-words",
+    title: "Cycle 10 · Spelling Words",
+    track: "core",
+    source: "../G2词表原件/Cycle 10 Spelling.jpg",
+    cycle: "cycle10-2026-official",
+    date: "2026-11-17/25",
+    subject: "Spelling Words",
+    words: [
+      "out", "south", "sound", "ground",
+      "couch", "outside", "house", "without",
+      "cloud", "crown", "down", "brown",
+      "downtown", "crowd", "town"
+    ],
+  },
+  {
+    id: "cycle10-2026-heart-words",
+    title: "Cycle 10 · Heart Words",
+    track: "core",
+    source: "../G2词表原件/Cycle 10 Spelling.jpg",
+    cycle: "cycle10-2026-official",
+    date: "2026-11-17/25",
+    subject: "Heart Words",
+    words: ["eye", "heart"],
   },
 ];
 
