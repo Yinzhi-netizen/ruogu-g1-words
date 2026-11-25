@@ -90,10 +90,22 @@ window.RUOGU_G2_CYCLES = [
     title: "Spelling + Heart Words (ou / ow)",
     schoolYear: "2026-2027",
     testDate: null,
-    status: "current",
+    status: "review",
     groupIds: [
       "cycle10-2026-spelling-words",
       "cycle10-2026-heart-words"
+    ]
+  },
+  {
+    id: "cycle11-2026-official",
+    label: "Cycle 11",
+    title: "Spelling + Words Review",
+    schoolYear: "2026-2027",
+    testDate: null,
+    status: "current",
+    groupIds: [
+      "cycle11-2026-spelling-words",
+      "cycle11-2026-review-words"
     ]
   }
 ];
@@ -285,6 +297,30 @@ window.RUOGU_G2_WORD_GROUPS = [
     date: "2026-11-17/25",
     subject: "Heart Words",
     words: ["eye", "heart"],
+  },
+  {
+    id: "cycle11-2026-spelling-words",
+    title: "Cycle 11 · Spelling Words",
+    track: "core",
+    source: "../G2词表原件/Cycle 11 Spelling Poster.png",
+    cycle: "cycle11-2026-official",
+    date: "2026-11-25/12-02",
+    subject: "Spelling Words",
+    words: [
+      "mushroom", "cowboy", "boiling", "breakfast",
+      "outside", "thousand", "enjoyed", "noisy",
+      "drawing", "daughter"
+    ],
+  },
+  {
+    id: "cycle11-2026-review-words",
+    title: "Cycle 11 · Words Review",
+    track: "core",
+    source: "../G2词表原件/Cycle 11 Newsletter.jpg",
+    cycle: "cycle11-2026-official",
+    date: "2026-11-25/12-02",
+    subject: "Words Review",
+    words: ["eye", "heart", "February", "Monday", "Wednesday"],
   },
 ];
 

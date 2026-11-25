@@ -1,5 +1,5 @@
 // 若谷英文 G2 · 例句与短文
-// 用词严格对应学校 Cycle 3 至 Cycle 10 原件
+// 用词严格对应学校 Cycle 3 至 Cycle 11 原件
 
 window.RUOGU_G2_STORIES = [
   {
@@ -53,6 +53,19 @@ window.RUOGU_G2_STORIES = [
       "He gives the puppy some fruit, and the little dog won his heart this month."
     ],
     wordsUsed: ["son", "blue", "boot", "room", "clue", "glue", "scoop", "food", "soon", "new", "chew", "tooth", "fruit", "won", "month"]
+  },
+  {
+    id: "story-cycle11-thousand-stars",
+    title: "A Thousand Stars at Breakfast",
+    subtitle: "早餐时的一千颗星星 · Cycle 11",
+    level: "G2 Cycle 11",
+    paragraphs: [
+      "On a Monday in February, a cowboy and his daughter enjoyed breakfast outside.",
+      "The soup was boiling, and a noisy bird sang nearby.",
+      "The girl is drawing a mushroom and a thousand stars.",
+      "'I can see every star with one eye,' says Dad. 'You put your heart into this! Let's draw again on Wednesday.'"
+    ],
+    wordsUsed: ["monday", "february", "cowboy", "daughter", "enjoyed", "breakfast", "outside", "boiling", "noisy", "drawing", "mushroom", "thousand", "eye", "heart", "wednesday"]
   }
 ];
 
@@ -179,5 +192,14 @@ window.RUOGU_G2_SENTENCES = {
   "crowd": "A big crowd watched the football game.",
   "town": "Our town has a big library.",
   "eye": "Close one eye and look at the star.",
-  "heart": "My heart beats fast when I run."
+  "heart": "My heart beats fast when I run.",
+  "mushroom": "The mushroom grows under a tree.",
+  "cowboy": "The cowboy rides a brown horse.",
+  "boiling": "The water is boiling in the pot.",
+  "breakfast": "We eat breakfast before school.",
+  "thousand": "A thousand stars shine in the sky.",
+  "enjoyed": "We enjoyed the story together.",
+  "noisy": "The noisy drum woke the baby.",
+  "drawing": "She is drawing a red flower.",
+  "daughter": "Their daughter likes to read."
 };
