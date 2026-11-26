@@ -6,20 +6,23 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="G2 Quiz Prep" />
-  <meta name="theme-color" content="#f7f4ec" />
+  <meta name="theme-color" content="#F7F1DF" />
   <title>G2 Quiz Prep · Ruogu's Word Lab</title>
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="apple-touch-icon" href="./icons/icon-180.png" />
-  <link rel="stylesheet" href="../wordlab.css?v=4" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@600&amp;family=Hanken+Grotesk:wght@400;500&amp;family=Newsreader:opsz,wght@6..72,400&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../wordlab.css?v=9" />
 </head>
 <body class="g2-page">
   <div class="site-shell">
     <header class="topbar">
       <a class="home-link" href="../index.html">
-        <span class="brand-mark">←</span>
-        <span class="brand-copy"><small>Ruogu's Word Lab</small><strong>Back to Word Explorer</strong></span>
+        <span class="brand-mark" aria-hidden="true">←</span>
+        <span class="brand-copy"><small>Ruogu's Word Lab</small><strong>Back to Word Lab</strong></span>
       </a>
-      <div class="star-pill"><span class="star">★</span><strong id="totalStars">0</strong><span>stars</span></div>
+      <div class="star-pill"><span class="star" aria-hidden="true">★</span><strong id="totalStars">0</strong><span>stars</span></div>
     </header>
 
     <section class="page-head">
@@ -37,7 +40,7 @@
 
     <section class="cycle-banner">
       <div>
-        <p class="eyebrow" style="color:rgba(255,255,255,.7)">Current mission</p>
+        <p class="eyebrow">Current mission</p>
         <h2 id="cycleTitle">Cycle 11 · Spelling + Words Review</h2>
         <p id="cycleSub">Meet the words, practise them, then take an iPad handwriting dictation.</p>
       </div>
@@ -54,7 +57,7 @@
           <button class="path-step" data-step="paper" type="button"><span class="step-num">3</span><strong>Mock dictation</strong><small>iPad handwriting first</small></button>
           <button class="path-step" data-step="trouble" type="button"><span class="step-num">4</span><strong>Try tricky words</strong><small>Focus on what needs work</small></button>
         </div>
-        <div class="mini-note"><span>✎</span><span>Use Apple Pencil by default. iPad recognises the handwriting and checks it automatically. Paper is always an option.</span></div>
+        <div class="mini-note"><span>Note</span><span>Use Apple Pencil by default. iPad recognises the handwriting and checks it automatically. Paper is always an option.</span></div>
       </aside>
 
       <section>
@@ -87,11 +90,11 @@
           <p class="prompt">Neither mode shows the answers. We recommend writing with Apple Pencil so the iPad can recognise and check each word.</p>
           <div class="mode-choice-grid">
             <button class="mode-choice is-primary" id="startHandwriting" type="button">
-              <span class="mode-badge">BEST CHOICE</span><span class="mode-icon" aria-hidden="true">✍️</span>
+              <span class="mode-badge">Best choice</span><span class="mode-icon" aria-hidden="true">A</span>
               <strong>iPad handwriting</strong><small>Write on the line and let the system check</small>
             </button>
             <button class="mode-choice" id="startPaper" type="button">
-              <span class="mode-icon" aria-hidden="true">📝</span>
+              <span class="mode-icon" aria-hidden="true">P</span>
               <strong>Paper dictation</strong><small>Write on paper and check together at the end</small>
             </button>
           </div>
@@ -138,7 +141,7 @@
           </div>
           <div class="mission-actions">
             <button class="primary-button" id="reviewTrouble" type="button">Practise the tricky words</button>
-            <a class="secondary-button" href="../index.html">Back to Word Explorer</a>
+            <a class="secondary-button" href="../index.html">Back to Word Lab</a>
           </div>
         </article>
 
@@ -160,7 +163,7 @@
   </div>
 
   <div class="confetti" id="confetti" hidden></div>
-  <script src="./g2-word-data.js?v=11"></script>
+  <script src="./g2-word-data.js?v=12"></script>
   <script src="./g2-stories.js?v=11"></script>
   <script src="./g2-stars.js"></script>
   <script src="./g2-prep-app.js?v=7"></script>

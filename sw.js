@@ -1,10 +1,10 @@
 const cachePrefix = "ruogu-word-lab-home-";
-const cacheName = `${cachePrefix}v15`;
+const cacheName = `${cachePrefix}v18`;
 const legacyCacheName = "ruogu-g1-words-v1";
 const assets = [
   "./",
   "./index.html",
-  "./wordlab.css?v=6",
+  "./wordlab.css?v=9",
   "./manifest.webmanifest",
   "./G1-words/index.html",
   "./G1-words/g1-word-data.js?v=4",
@@ -16,7 +16,7 @@ const assets = [
   "./G1-words/icons/icon-192.png",
   "./G1-words/icons/icon-512.png",
   "./G2-words/index.html",
-  "./G2-words/g2-word-data.js?v=11",
+  "./G2-words/g2-word-data.js?v=12",
   "./G2-words/g2-stories.js?v=11",
   "./G2-words/g2-stars.js",
   "./G2-words/g2-prep-app.js?v=7",
@@ -33,7 +33,7 @@ const assets = [
   "./Book-words/icons/icon-192.png",
   "./Book-words/icons/icon-512.png",
   "./Nate-words/index.html",
-  "./Nate-words/nate.css?v=3",
+  "./Nate-words/nate.css?v=7",
   "./Nate-words/nate-word-data.js?v=3",
   "./Nate-words/nate-stars.js?v=1",
   "./Nate-words/nate-app.js?v=4",
@@ -72,7 +72,7 @@ self.addEventListener("fetch", (event) => {
         const copy = response.clone();
         caches.open(cacheName).then((cache) => cache.put(request, copy)).catch(() => {});
         return response;
-      }).catch(() => caches.match(request))
+      }).catch(() => caches.match(request, { ignoreSearch: true }))
     );
     return;
   }

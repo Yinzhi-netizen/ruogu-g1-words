@@ -6,26 +6,29 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Nate Words" />
-  <meta name="theme-color" content="#f7f4ec" />
+  <meta name="theme-color" content="#F7F1DF" />
   <title>Nate's Pancake Words · Ruogu's Word Lab</title>
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="apple-touch-icon" href="./icons/icon-180.png" />
-  <link rel="stylesheet" href="../wordlab.css?v=6" />
-  <link rel="stylesheet" href="./nate.css?v=4" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@600&amp;family=Hanken+Grotesk:wght@400;500&amp;family=Newsreader:opsz,wght@6..72,400&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../wordlab.css?v=9" />
+  <link rel="stylesheet" href="./nate.css?v=7" />
 </head>
 <body class="book-page nate-page">
   <div class="site-shell">
     <header class="topbar">
       <a class="home-link" href="../index.html">
-        <span class="brand-mark">←</span>
-        <span class="brand-copy"><small>Ruogu's Word Lab</small><strong>Back to Word Explorer</strong></span>
+        <span class="brand-mark" aria-hidden="true">←</span>
+        <span class="brand-copy"><small>Ruogu's Word Lab</small><strong>Back to Word Lab</strong></span>
       </a>
-      <div class="star-pill"><span class="star">★</span><strong id="totalStars">0</strong><span>stars</span></div>
+      <div class="star-pill"><span class="star" aria-hidden="true">★</span><strong id="totalStars">0</strong><span>stars</span></div>
     </header>
 
     <section class="page-head">
       <div>
-        <p class="eyebrow">Nate the Great · detective agency</p>
+        <p class="eyebrow">Nate the Great · Detective agency</p>
         <h1>Pancake Words</h1>
         <p>Take a case. Slice the right pancakes to collect evidence — then find out who did it. Every pancake you slice feeds Sludge.</p>
       </div>
@@ -40,15 +43,15 @@
       <aside class="side-panel">
         <p class="eyebrow">How to play</p>
         <div class="mode-picker" role="group" aria-label="Play mode">
-          <button class="mode-chip" type="button" data-mode="hear"><span>🔊</span><strong>Hear it</strong><small>Listen, then slice</small></button>
-          <button class="mode-chip" type="button" data-mode="mean"><span>💬</span><strong>Mean it</strong><small>Read the meaning</small></button>
+          <button class="mode-chip" type="button" data-mode="hear"><span aria-hidden="true">H</span><strong>Hear it</strong><small>Listen, then slice</small></button>
+          <button class="mode-chip" type="button" data-mode="mean"><span aria-hidden="true">M</span><strong>Mean it</strong><small>Read the meaning</small></button>
         </div>
         <div class="path-list" id="pathList">
-          <button class="path-step is-active" data-step="today" type="button"><span class="step-num">🕵️</span><strong>Take a case</strong><small>Any time, any length</small></button>
-          <button class="path-step" data-step="sludge" type="button"><span class="step-num">🐕</span><strong>Sludge's closet</strong><small>Feed & dress up</small></button>
-          <button class="path-step" data-step="shelf" type="button"><span class="step-num">📚</span><strong>Cases & shelf</strong><small>Case board, book by book</small></button>
+          <button class="path-step is-active" data-step="today" type="button"><span class="step-num">1</span><strong>Take a case</strong><small>Any time, any length</small></button>
+          <button class="path-step" data-step="sludge" type="button"><span class="step-num">2</span><strong>Sludge's closet</strong><small>Feed & dress up</small></button>
+          <button class="path-step" data-step="shelf" type="button"><span class="step-num">3</span><strong>Cases & shelf</strong><small>Case board, book by book</small></button>
         </div>
-        <div class="mini-note"><span>🔍</span><span>8 pieces of evidence close a case. Missed words fly again soon; known ones fly by less often. No daily tasks — play as long as it's fun.</span></div>
+        <div class="mini-note"><span>Clue</span><span>8 pieces of evidence close a case. Missed words fly again soon; known ones fly by less often. No daily tasks — play as long as it's fun.</span></div>
       </aside>
 
       <section>
@@ -61,16 +64,16 @@
             <p class="sludge-meta" id="startSludgeMeta"></p>
           </div>
           <div class="mission-actions">
-            <button class="primary-button" id="startButton" type="button">Take the case 🕵️</button>
+            <button class="primary-button" id="startButton" type="button">Take the case →</button>
           </div>
         </article>
 
         <article class="slice-stage" id="playView" hidden>
           <div class="slice-hud">
             <div class="slice-hearts" id="hearts" aria-label="Misses left"></div>
-            <div class="slice-score" aria-label="Evidence collected">🔍 <strong id="evidence">0/8</strong></div>
+            <div class="slice-score" aria-label="Evidence collected">Evidence <strong id="evidence">0/8</strong></div>
             <p class="slice-banner" id="sliceBanner"></p>
-            <button class="hear-button" id="hearButton" type="button" aria-label="Hear the word">🔊</button>
+            <button class="hear-button" id="hearButton" type="button" aria-label="Hear the word">♪</button>
           </div>
           <strong class="slice-combo" id="comboLabel" hidden></strong>
           <div class="slice-sky" id="arena">
@@ -82,7 +85,7 @@
         </article>
 
         <article class="mission-card" id="finishView" hidden>
-          <p class="mission-kicker" id="finishKicker">CASE CLOSED</p>
+          <p class="mission-kicker" id="finishKicker">Case closed</p>
           <h2 id="finishTitle">It was Sludge!</h2>
           <p class="prompt" id="finishCopy"></p>
           <div class="finish-stack" id="finishStack"></div>
@@ -92,8 +95,8 @@
             <div class="summary-item"><small>Earned</small><strong id="finishEarned">+0★</strong></div>
           </div>
           <div class="mission-actions">
-            <button class="primary-button" id="nextCaseButton" type="button">Take a new case 🕵️</button>
-            <button class="secondary-button" id="toCloset" type="button">Visit Sludge's closet 🐕</button>
+            <button class="primary-button" id="nextCaseButton" type="button">Take a new case →</button>
+            <button class="secondary-button" id="toCloset" type="button">Visit Sludge's closet</button>
           </div>
         </article>
 
@@ -104,7 +107,7 @@
             <div class="sludge-pal big" id="sludgeBig" aria-hidden="true"></div>
           </div>
           <div id="sludgeStats"></div>
-          <p class="eyebrow wardrobe-head">Wardrobe — unlock by playing</p>
+          <p class="eyebrow wardrobe-head">Wardrobe · Unlock by playing</p>
           <div class="wardrobe" id="wardrobe"></div>
         </article>
 

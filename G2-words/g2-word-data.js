@@ -101,6 +101,7 @@ window.RUOGU_G2_CYCLES = [
     label: "Cycle 11",
     title: "Spelling + Words Review",
     schoolYear: "2026-2027",
+    period: "25 November to 2 December",
     testDate: null,
     status: "current",
     groupIds: [

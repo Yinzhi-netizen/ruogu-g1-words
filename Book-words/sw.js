@@ -1,9 +1,9 @@
 const cachePrefix = "ruogu-word-lab-books-";
-const cacheName = `${cachePrefix}v1`;
+const cacheName = `${cachePrefix}v4`;
 const assets = [
   "./",
   "./index.html",
-  "../wordlab.css?v=6",
+  "../wordlab.css?v=9",
   "./book-word-data.js?v=1",
   "./book-stars.js?v=1",
   "./book-app.js?v=1",
@@ -40,7 +40,7 @@ self.addEventListener("fetch", (event) => {
         const clone = res.clone();
         caches.open(cacheName).then((cache) => cache.put(req, clone)).catch(() => {});
         return res;
-      }).catch(() => caches.match(req))
+      }).catch(() => caches.match(req, { ignoreSearch: true }))
     );
   } else {
     event.respondWith(
